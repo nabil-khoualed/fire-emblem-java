@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Main {
     public static void afficherNomEtPv(Unite unite) {
@@ -10,6 +12,10 @@ public class Main {
         for (Unite unite : equipe) {
             afficherNomEtPv(unite);
         }
+    }
+
+    public static EtatUnite recupererEtat(Unite unite, Map<Unite, EtatUnite> etats) {
+        return etats.get(unite);
     }
 
     public static void main(String[] args) {
@@ -24,9 +30,22 @@ public class Main {
 
         ArrayList<Unite> ennemies = new ArrayList<>(List.of(vaike));
 
+        HashMap<Unite, EtatUnite> etats = new HashMap<>();
+        ArrayList<Unite> allUnits = new ArrayList<>();
+        allUnits.addAll(allies);
+        allUnits.addAll(ennemies);
+
+        for (Unite unite : allUnits) {
+            etats.put(unite, EtatUnite.DISPONIBLE);
+        }
+
         System.out.println("Troupe alliés : ");
         afficherEquipe(allies);
         System.out.println("\nTroupe ennemis : ");
         afficherEquipe(ennemies);
+
+        for (Unite unite : allUnits) {
+            System.out.println(unite.getName() + " : " + recupererEtat(unite, etats));
+        }
     }
 }
