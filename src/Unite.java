@@ -50,8 +50,7 @@ public abstract class Unite {
     }
 
     public void afficherFiche() {
-        System.out.println("Nom : " + name);
-        System.out.println("PV : " + currentHp + " / " + maxHp);
+        System.out.println(typeUnite() + " " + name + " : " + currentHp + " / " + maxHp + " PV");
     }
 
     public void subirDegats(int damage) {
