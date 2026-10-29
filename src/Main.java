@@ -110,13 +110,18 @@ public class Main {
         }
         System.out.println("Chrom après dégâts et soin : " + chrom.afficherHp());
         System.out.println("Phase alliée terminée : " + phaseTerminee(allies, etats));
+
+        if(peutAgir(vaike, etats)) {
+            vaike.attaqueRapide(chrom);
+            etats.put(vaike, EtatUnite.TERMINEE);
+        }
+        System.out.println("Chrom après phase ennemie : " + chrom.afficherHp() + " et phase ennemie terminée : " + phaseTerminee(ennemies, etats));
     }
 }
 
 /* 
-Travail demandé. Créer une vérification globale qui reçoit une équipe et les états, et renvoie vrai
-seulement si toutes les unités de cette équipe sont TERMINEE. L’utiliser à la fin des quatre actions
-alliées.
-Contrainte. Ne pas supposer qu’une équipe contient toujours quatre unités ; ne pas tenir compte des états
-ennemis pour décider si la phase alliée est terminée.
-Validation. Phase alliée terminée : true. Avant l’action de Lissa, la même vérification doit renvoyer false. */
+Travail demandé. Après la fin de la phase alliée, simuler la phase ennemie : Vaike, s’il peut agir, utilise
+attaqueRapide() sur Chrom, puis devient TERMINEE. Vérifier la fin de la phase ennemie.
+Contrainte. Vaike reste à 17/25 PV. Il s’agit d’une action scénarisée, pas d’une IA. Ne réinitialise pas les états
+alliés avant la fin de la phase ennemie.
+Validation. Chrom après phase ennemie : 17 / 24 PV et Phase ennemie terminée : true. */
