@@ -91,12 +91,20 @@ public class Main {
         attendre(robin, etats);
         System.out.println(frederick.getName() + " : " + recupererEtat(frederick, etats));
         System.out.println(robin.getName() + " : " + recupererEtat(robin, etats));
+
+        chrom.subirDegats(6);
+        if(peutAgir(lissa, etats)) {
+            lissa.soignerCible(chrom, 5);
+            etats.put(lissa, EtatUnite.TERMINEE);
+        }
+        System.out.println("Chrom après dégâts et soin : " + chrom.afficherHp());
     }
 }
 
 /* 
-Travail demandé. Créer une opération explicite d’attente, par exemple attendre(Unite unite). Faire
-attendre Frederick puis Robin pendant la même phase alliée.
-Contrainte. Attendre ne modifie pas les PV ; l’opération ne doit fonctionner que sur une unité autorisée à agir.
-Ne pas construire de moteur automatique à partir de l’enum Action.
-Validation. Frederick et Robin deviennent TERMINEE et leurs PV restent inchangés */
+Travail demandé. Avant l’activation de Lissa, faire subir 6 dégâts à Chrom via subirDegats(). Faire
+ensuite soigner Chrom de 5 PV par Lissa via l’interface Soigneur, puis marquer Lissa TERMINEE. Afficher
+les PV de Chrom.
+Contrainte. Lissa ne soigne que si elle peut agir ; réutiliser le plafonnement des PV de Unite.soigner(). Les 6
+dégâts sont imposés par le scénario, sans attaque supplémentaire de Vaike.
+Validation. Chrom après dégâts et soin : 23 / 24 PV. */
