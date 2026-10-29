@@ -39,6 +39,14 @@ public class Main {
         return true;
     }
 
+    public static void reinitialiserEtat(List<Unite> equipe, Map<Unite, EtatUnite> etats) {
+        for(Unite unite : equipe) {
+            if(unite.getCurrentHp() > 0) {
+                etats.put(unite, EtatUnite.DISPONIBLE);
+            }
+        }
+    }
+
     public static void main(String[] args) {
         Epeiste chrom = new Epeiste("Chrom", 24, 8);
         Cavalier frederick = new Cavalier("Frederick", 30, 7);
@@ -64,6 +72,7 @@ public class Main {
         afficherEquipe(allies);
         System.out.println("\nTroupe ennemis : ");
         afficherEquipe(ennemies);
+        System.out.println("");
 
         chrom.subirDegats(24);
         etats.put(frederick, EtatUnite.TERMINEE);
@@ -81,6 +90,7 @@ public class Main {
         if(peutAgir(chrom, etats)) {
             chrom.attaqueRapide(vaike);
             System.out.println("Chrom attaque Vaike.");
+            System.out.println("Vaike après attaque : " + vaike.afficherHp());
             etats.put(chrom, EtatUnite.TERMINEE);
         }
         else {
@@ -98,11 +108,7 @@ public class Main {
         System.out.println("Vaike : " + vaike.afficherHp());
         attendre(frederick, etats);
         attendre(robin, etats);
-        System.out.println(frederick.getName() + " : " + recupererEtat(frederick, etats));
-        System.out.println(robin.getName() + " : " + recupererEtat(robin, etats));
 
-
-        System.out.println("Phase alliée terminée : " + phaseTerminee(allies, etats));
         chrom.subirDegats(6);
         if(peutAgir(lissa, etats)) {
             lissa.soignerCible(chrom, 5);
@@ -115,13 +121,27 @@ public class Main {
             vaike.attaqueRapide(chrom);
             etats.put(vaike, EtatUnite.TERMINEE);
         }
-        System.out.println("Chrom après phase ennemie : " + chrom.afficherHp() + " et phase ennemie terminée : " + phaseTerminee(ennemies, etats));
+
+        System.out.println("Frederick tombe dans un piège mortel !");
+        frederick.subirDegats(99);
+        System.out.println("Frederick après le drame : " + frederick.afficherHp());
+        System.out.println("Chrom après phase ennemie : " + chrom.afficherHp());
+        System.out.println("Phase ennemie terminée : " + phaseTerminee(ennemies, etats));
+        reinitialiserEtat(allUnits, etats);
+        System.out.println("Début du tour suivant : unités vivantes DISPONIBLE");
+        for(Unite unite : allUnits) {
+            System.out.println(unite.getName() + " : " + recupererEtat(unite, etats));
+        }
     }
+    
 }
 
 /* 
-Travail demandé. Après la fin de la phase alliée, simuler la phase ennemie : Vaike, s’il peut agir, utilise
-attaqueRapide() sur Chrom, puis devient TERMINEE. Vérifier la fin de la phase ennemie.
-Contrainte. Vaike reste à 17/25 PV. Il s’agit d’une action scénarisée, pas d’une IA. Ne réinitialise pas les états
-alliés avant la fin de la phase ennemie.
-Validation. Chrom après phase ennemie : 17 / 24 PV et Phase ennemie terminée : true. */
+Travail demandé. Créer une méthode réinitialisant à DISPONIBLE l’état des unités vivantes de l’équipe
+reçue. Après les deux phases terminées, réinitialiser les deux équipes et afficher leurs états. Organiser
+les appels pour que le déroulement complet reste lisible dans main (ou dans une classe Partie
+facultative).
+Contrainte. Ne pas réanimer d’unité à 0 PV ; ne pas effacer les PV ni recréer les personnages. Le deuxième
+tour n’a pas besoin d’être simulé.
+Validation. Chrom conserve 17/24 PV, Vaike 17/25 PV ; tous les personnages vivants sont de nouveau
+DISPONIBLE. */
