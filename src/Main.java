@@ -30,6 +30,15 @@ public class Main {
         return false;
     }
 
+    public static boolean phaseTerminee(List<Unite> equipe, Map<Unite, EtatUnite> etats) {
+        for (Unite unite : equipe) {
+            if(recupererEtat(unite, etats) != EtatUnite.TERMINEE) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
         Epeiste chrom = new Epeiste("Chrom", 24, 8);
         Cavalier frederick = new Cavalier("Frederick", 30, 7);
@@ -92,19 +101,22 @@ public class Main {
         System.out.println(frederick.getName() + " : " + recupererEtat(frederick, etats));
         System.out.println(robin.getName() + " : " + recupererEtat(robin, etats));
 
+
+        System.out.println("Phase alliée terminée : " + phaseTerminee(allies, etats));
         chrom.subirDegats(6);
         if(peutAgir(lissa, etats)) {
             lissa.soignerCible(chrom, 5);
             etats.put(lissa, EtatUnite.TERMINEE);
         }
         System.out.println("Chrom après dégâts et soin : " + chrom.afficherHp());
+        System.out.println("Phase alliée terminée : " + phaseTerminee(allies, etats));
     }
 }
 
 /* 
-Travail demandé. Avant l’activation de Lissa, faire subir 6 dégâts à Chrom via subirDegats(). Faire
-ensuite soigner Chrom de 5 PV par Lissa via l’interface Soigneur, puis marquer Lissa TERMINEE. Afficher
-les PV de Chrom.
-Contrainte. Lissa ne soigne que si elle peut agir ; réutiliser le plafonnement des PV de Unite.soigner(). Les 6
-dégâts sont imposés par le scénario, sans attaque supplémentaire de Vaike.
-Validation. Chrom après dégâts et soin : 23 / 24 PV. */
+Travail demandé. Créer une vérification globale qui reçoit une équipe et les états, et renvoie vrai
+seulement si toutes les unités de cette équipe sont TERMINEE. L’utiliser à la fin des quatre actions
+alliées.
+Contrainte. Ne pas supposer qu’une équipe contient toujours quatre unités ; ne pas tenir compte des états
+ennemis pour décider si la phase alliée est terminée.
+Validation. Phase alliée terminée : true. Avant l’action de Lissa, la même vérification doit renvoyer false. */
