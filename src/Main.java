@@ -60,17 +60,32 @@ public class Main {
 
         lissa.soignerCible(chrom, 24);
         etats.put(frederick, EtatUnite.DISPONIBLE);
+
+        if(peutAgir(chrom, etats)) {
+            chrom.attaqueRapide(vaike);
+            System.out.println("Chrom attaque Vaike.");
+            etats.put(chrom, EtatUnite.TERMINEE);
+        }
+        else {
+            System.out.println("Chrom ne peut pas agir.");
+        }
+
+        if(peutAgir(chrom, etats)) {
+            chrom.attaqueRapide(vaike);
+            System.out.println("Chrom attaque Vaike.");
+            etats.put(chrom, EtatUnite.TERMINEE);
+        }
+        else {
+            System.out.println("Chrom ne peut pas agir.");
+        }
+        System.out.println("Vaike : " + vaike.afficherHp());
     }
 }
 
-/*
- * Travail demandé. Écrire une méthode de validation, par exemple peutAgir(Unite
- * unite), qui n’autorise
- * une action que si l’unité a des PV strictement positifs et l’état DISPONIBLE.
- * Tester une unité disponible,
- * une unité TERMINEE et une unité à 0 PV.
- * Contrainte. La méthode doit seulement renvoyer un booléen, sans afficher ni
- * modifier l’unité. Pour les tests,
- * rétablir les états nécessaires ensuite.
- * Validation. Les résultats sont respectivement true, false, false.
- */
+/* 
+Travail demandé. Pendant la phase alliée, faire attaquer Chrom sur Vaike avec attaqueRapide(),
+uniquement si Chrom peut agir. Une fois l’attaque réalisée, passer Chrom à TERMINEE. Afficher les PV
+de Vaike.
+Contrainte. Ne pas modifier directement les PV ni ignorer la validation de l’exercice 4. Une tentative de
+seconde action de Chrom ne doit rien appliquer.
+Validation. Vaike après attaque : 17 / 25 PV ; Chrom est TERMINEE. */
