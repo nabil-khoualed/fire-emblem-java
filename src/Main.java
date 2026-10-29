@@ -18,6 +18,10 @@ public class Main {
         return etats.get(unite);
     }
 
+    public static boolean peutAgir(Unite unite, Map<Unite, EtatUnite> etats) {
+        return ((unite.getCurrentHp() > 0) && (recupererEtat(unite, etats) == EtatUnite.DISPONIBLE));
+    }
+
     public static void main(String[] args) {
         Epeiste chrom = new Epeiste("Chrom", 24, 8);
         Cavalier frederick = new Cavalier("Frederick", 30, 7);
@@ -44,8 +48,29 @@ public class Main {
         System.out.println("\nTroupe ennemis : ");
         afficherEquipe(ennemies);
 
+        chrom.subirDegats(24);
+        etats.put(frederick, EtatUnite.TERMINEE);
         for (Unite unite : allUnits) {
             System.out.println(unite.getName() + " : " + recupererEtat(unite, etats));
         }
+
+        for (Unite unite : allUnits) {
+            System.out.println(unite.getName() + " peut agir : " + peutAgir(unite, etats));
+        }
+
+        lissa.soignerCible(chrom, 24);
+        etats.put(frederick, EtatUnite.DISPONIBLE);
     }
 }
+
+/*
+ * Travail demandé. Écrire une méthode de validation, par exemple peutAgir(Unite
+ * unite), qui n’autorise
+ * une action que si l’unité a des PV strictement positifs et l’état DISPONIBLE.
+ * Tester une unité disponible,
+ * une unité TERMINEE et une unité à 0 PV.
+ * Contrainte. La méthode doit seulement renvoyer un booléen, sans afficher ni
+ * modifier l’unité. Pour les tests,
+ * rétablir les états nécessaires ensuite.
+ * Validation. Les résultats sont respectivement true, false, false.
+ */
