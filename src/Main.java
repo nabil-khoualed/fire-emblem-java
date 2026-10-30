@@ -59,6 +59,8 @@ public class Main {
 
         ArrayList<Unite> ennemies = new ArrayList<>(List.of(vaike));
 
+        Partie game = new Partie(allies, ennemies);
+
         HashMap<Unite, EtatUnite> etats = new HashMap<>();
         ArrayList<Unite> allUnits = new ArrayList<>();
         allUnits.addAll(allies);
@@ -69,9 +71,9 @@ public class Main {
         }
 
         System.out.println("Troupe alliés : ");
-        afficherEquipe(allies);
+        afficherEquipe(game.getListAllies());
         System.out.println("\nTroupe ennemis : ");
-        afficherEquipe(ennemies);
+        afficherEquipe(game.getListEnnemies());
         System.out.println("");
 
         chrom.subirDegats(24);
@@ -133,7 +135,6 @@ public class Main {
             System.out.println(unite.getName() + " : " + recupererEtat(unite, etats));
         }
     }
-    
 }
 
 /* 
