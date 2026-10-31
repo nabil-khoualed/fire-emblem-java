@@ -76,13 +76,13 @@ public class Main {
         }
 
         for (Unite unite : allUnits) {
-            System.out.println(unite.getName() + " peut agir : " + peutAgir(unite, game.getEtats()));
+            System.out.println(unite.getName() + " peut agir : " + game.peutAgir(unite));
         }
 
         lissa.soignerCible(chrom, 24);
         game.modifierEtat(frederick, EtatUnite.DISPONIBLE);
 
-        if(peutAgir(chrom, game.getEtats())) {
+        if(game.peutAgir(chrom)) {
             chrom.attaqueRapide(vaike);
             System.out.println("Chrom attaque Vaike.");
             System.out.println("Vaike après attaque : " + vaike.afficherHp());
@@ -92,7 +92,7 @@ public class Main {
             System.out.println("Chrom ne peut pas agir.");
         }
 
-        if(peutAgir(chrom, game.getEtats())) {
+        if(game.peutAgir(chrom)) {
             chrom.attaqueRapide(vaike);
             System.out.println("Chrom attaque Vaike.");
             game.modifierEtat(chrom, EtatUnite.TERMINEE);
@@ -106,7 +106,7 @@ public class Main {
         attendre(robin, game.getEtats());
 
         chrom.subirDegats(6);
-        if(peutAgir(lissa, game.getEtats())) {
+        if(game.peutAgir(lissa)) {
             lissa.soignerCible(chrom, 5);
             game.modifierEtat(lissa, EtatUnite.TERMINEE);
 
@@ -114,7 +114,7 @@ public class Main {
         System.out.println("Chrom après dégâts et soin : " + chrom.afficherHp());
         System.out.println("Phase alliée terminée : " + phaseTerminee(allies, game.getEtats()));
 
-        if(peutAgir(vaike, game.getEtats())) {
+        if(game.peutAgir(vaike)) {
             vaike.attaqueRapide(chrom);
             game.modifierEtat(vaike, EtatUnite.TERMINEE);
 

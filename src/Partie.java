@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,6 +37,11 @@ public class Partie {
 
     public Map<Unite, EtatUnite> getEtats() {
         return etats;
+    }
+
+    public boolean peutAgir(Unite unite) {
+        return unite.getCurrentHp() > 0 && etats.get(unite) == EtatUnite.DISPONIBLE;
+
     }
 }
 
