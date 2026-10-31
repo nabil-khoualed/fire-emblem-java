@@ -14,12 +14,9 @@ public class Main {
         }
     }
 
-    public static EtatUnite recupererEtat(Unite unite, Map<Unite, EtatUnite> etats) {
-        return etats.get(unite);
-    }
-
     public static boolean peutAgir(Unite unite, Map<Unite, EtatUnite> etats) {
-        return ((unite.getCurrentHp() > 0) && (recupererEtat(unite, etats) == EtatUnite.DISPONIBLE));
+        return unite.getCurrentHp() > 0
+                && etats.get(unite) == EtatUnite.DISPONIBLE;
     }
 
     public static boolean attendre(Unite unite, Map<Unite, EtatUnite> etats) {
@@ -32,7 +29,7 @@ public class Main {
 
     public static boolean phaseTerminee(List<Unite> equipe, Map<Unite, EtatUnite> etats) {
         for (Unite unite : equipe) {
-            if(recupererEtat(unite, etats) != EtatUnite.TERMINEE) {
+            if(etats.get(unite) != EtatUnite.TERMINEE) {
                 return false;
             }
         }
@@ -61,14 +58,10 @@ public class Main {
 
         Partie game = new Partie(allies, ennemies);
 
-        HashMap<Unite, EtatUnite> etats = new HashMap<>();
         ArrayList<Unite> allUnits = new ArrayList<>();
         allUnits.addAll(allies);
         allUnits.addAll(ennemies);
 
-        for (Unite unite : allUnits) {
-            etats.put(unite, EtatUnite.DISPONIBLE);
-        }
 
         System.out.println("Troupe alliés : ");
         afficherEquipe(game.getListAllies());
@@ -77,62 +70,65 @@ public class Main {
         System.out.println("");
 
         chrom.subirDegats(24);
-        etats.put(frederick, EtatUnite.TERMINEE);
+        game.modifierEtat(frederick, EtatUnite.TERMINEE);
         for (Unite unite : allUnits) {
-            System.out.println(unite.getName() + " : " + recupererEtat(unite, etats));
+            System.out.println(unite.getName() + " : " + game.recupererEtat(unite));
         }
 
         for (Unite unite : allUnits) {
-            System.out.println(unite.getName() + " peut agir : " + peutAgir(unite, etats));
+            System.out.println(unite.getName() + " peut agir : " + peutAgir(unite, game.getEtats()));
         }
 
         lissa.soignerCible(chrom, 24);
-        etats.put(frederick, EtatUnite.DISPONIBLE);
+        game.modifierEtat(frederick, EtatUnite.DISPONIBLE);
 
-        if(peutAgir(chrom, etats)) {
+        if(peutAgir(chrom, game.getEtats())) {
             chrom.attaqueRapide(vaike);
             System.out.println("Chrom attaque Vaike.");
             System.out.println("Vaike après attaque : " + vaike.afficherHp());
-            etats.put(chrom, EtatUnite.TERMINEE);
+            game.modifierEtat(chrom, EtatUnite.TERMINEE);
         }
         else {
             System.out.println("Chrom ne peut pas agir.");
         }
 
-        if(peutAgir(chrom, etats)) {
+        if(peutAgir(chrom, game.getEtats())) {
             chrom.attaqueRapide(vaike);
             System.out.println("Chrom attaque Vaike.");
-            etats.put(chrom, EtatUnite.TERMINEE);
+            game.modifierEtat(chrom, EtatUnite.TERMINEE);
+
         }
         else {
             System.out.println("Chrom ne peut pas agir.");
         }
         System.out.println("Vaike : " + vaike.afficherHp());
-        attendre(frederick, etats);
-        attendre(robin, etats);
+        attendre(frederick, game.getEtats());
+        attendre(robin, game.getEtats());
 
         chrom.subirDegats(6);
-        if(peutAgir(lissa, etats)) {
+        if(peutAgir(lissa, game.getEtats())) {
             lissa.soignerCible(chrom, 5);
-            etats.put(lissa, EtatUnite.TERMINEE);
+            game.modifierEtat(lissa, EtatUnite.TERMINEE);
+
         }
         System.out.println("Chrom après dégâts et soin : " + chrom.afficherHp());
-        System.out.println("Phase alliée terminée : " + phaseTerminee(allies, etats));
+        System.out.println("Phase alliée terminée : " + phaseTerminee(allies, game.getEtats()));
 
-        if(peutAgir(vaike, etats)) {
+        if(peutAgir(vaike, game.getEtats())) {
             vaike.attaqueRapide(chrom);
-            etats.put(vaike, EtatUnite.TERMINEE);
+            game.modifierEtat(vaike, EtatUnite.TERMINEE);
+
         }
 
         System.out.println("Frederick tombe dans un piège mortel !");
         frederick.subirDegats(99);
         System.out.println("Frederick après le drame : " + frederick.afficherHp());
         System.out.println("Chrom après phase ennemie : " + chrom.afficherHp());
-        System.out.println("Phase ennemie terminée : " + phaseTerminee(ennemies, etats));
-        reinitialiserEtat(allUnits, etats);
+        System.out.println("Phase ennemie terminée : " + phaseTerminee(ennemies, game.getEtats()));
+        reinitialiserEtat(allUnits, game.getEtats());
         System.out.println("Début du tour suivant : unités vivantes DISPONIBLE");
         for(Unite unite : allUnits) {
-            System.out.println(unite.getName() + " : " + recupererEtat(unite, etats));
+            System.out.println(unite.getName() + " : " + game.recupererEtat(unite));
         }
     }
 }
