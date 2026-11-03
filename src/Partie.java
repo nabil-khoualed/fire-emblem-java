@@ -78,14 +78,23 @@ public class Partie {
         }
         return true;
     }
+
+    public void reinitialiserEtat(List<Unite> equipe) {
+        for(Unite unite : equipe) {
+            if(unite.getCurrentHp() > 0) {
+                etats.put(unite, EtatUnite.DISPONIBLE);
+            }
+        }
+    }
 }
 
 /* 
-Travail demandé. Créer dans Partie une méthode qui vérifie si toutes les unités d’une équipe
-passée en argument ont l’état TERMINEE. Faire attendre Frederick et Robin, puis vérifier la fin de
-la phase alliée avant et après le soin de Lissa.
+Travail demandé. Créer dans Partie une opération qui réinitialise à DISPONIBLE les unités vivantes
+d’une équipe. Après les deux phases, réinitialiser les deux équipes et afficher les états. Pour tester
+la condition, mettre temporairement Frederick à 0 PV après son action, puis observer son état.
 
-Contrainte. Ne pas supposer qu’il y a toujours quatre alliés. Les états ennemis ne doivent pas
-intervenir dans la vérification de l’équipe alliée.
+Contrainte. Ne pas restaurer les PV, ne pas recréer les objets et ne pas remettre DISPONIBLE une
+unité à 0 PV. Le second tour ne doit pas être simulé.
 
-Validation. Avant Lissa : false ; après Lissa : true. Vaike peut être encore DISPONIBLE. */
+Validation. Les unités vivantes redeviennent DISPONIBLE ; Frederick, à 0 PV, conserve son dernier
+état. Chrom reste à 17/24 PV et Vaike à 17/25 PV. */

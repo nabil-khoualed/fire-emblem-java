@@ -14,19 +14,6 @@
             }
         }
 
-        public static boolean peutAgir(Unite unite, Map<Unite, EtatUnite> etats) {
-            return unite.getCurrentHp() > 0
-                    && etats.get(unite) == EtatUnite.DISPONIBLE;
-        }
-
-        public static void reinitialiserEtat(List<Unite> equipe, Map<Unite, EtatUnite> etats) {
-            for(Unite unite : equipe) {
-                if(unite.getCurrentHp() > 0) {
-                    etats.put(unite, EtatUnite.DISPONIBLE);
-                }
-            }
-        }
-
         public static void main(String[] args) {
             Epeiste chrom = new Epeiste("Chrom", 24, 8);
             Cavalier frederick = new Cavalier("Frederick", 30, 7);
@@ -91,7 +78,8 @@
 
             System.out.println("Chrom après phase ennemie : " + chrom.afficherHp());
             System.out.println("Phase ennemie terminée : " + game.phaseTerminee(ennemies));
-            reinitialiserEtat(allUnits, game.getEtats());
+            frederick.subirDegats(99);
+            game.reinitialiserEtat(allUnits);
             System.out.println("Début du tour suivant : unités vivantes DISPONIBLE");
             for(Unite unite : allUnits) {
                 System.out.println(unite.getName() + " : " + game.recupererEtat(unite));
