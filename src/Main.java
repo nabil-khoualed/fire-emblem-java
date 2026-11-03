@@ -19,15 +19,6 @@ public class Main {
                 && etats.get(unite) == EtatUnite.DISPONIBLE;
     }
 
-    public static boolean phaseTerminee(List<Unite> equipe, Map<Unite, EtatUnite> etats) {
-        for (Unite unite : equipe) {
-            if(etats.get(unite) != EtatUnite.TERMINEE) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public static void reinitialiserEtat(List<Unite> equipe, Map<Unite, EtatUnite> etats) {
         for(Unite unite : equipe) {
             if(unite.getCurrentHp() > 0) {
@@ -87,16 +78,18 @@ public class Main {
         game.attendre(frederick);
         game.attendre(robin);
 
+        System.out.println("Phase alliée terminée : " + game.phaseTerminee(allies));
+
         chrom.subirDegats(6);
         game.soigner(lissa, chrom, 5);
         game.soigner(lissa, chrom, 5);
         System.out.println("Chrom après dégâts et soin : " + chrom.afficherHp());
-        System.out.println("Phase alliée terminée : " + phaseTerminee(allies, game.getEtats()));
+        System.out.println("Phase alliée terminée : " + game.phaseTerminee(allies));
 
         game.attaquer(vaike, chrom);
 
         System.out.println("Chrom après phase ennemie : " + chrom.afficherHp());
-        System.out.println("Phase ennemie terminée : " + phaseTerminee(ennemies, game.getEtats()));
+        System.out.println("Phase ennemie terminée : " + game.phaseTerminee(ennemies));
         reinitialiserEtat(allUnits, game.getEtats());
         System.out.println("Début du tour suivant : unités vivantes DISPONIBLE");
         for(Unite unite : allUnits) {

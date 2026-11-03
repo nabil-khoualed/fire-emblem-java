@@ -69,15 +69,23 @@ public class Partie {
         }
         return false;
     }
+
+    public boolean phaseTerminee(List<Unite> equipe) {
+        for (Unite unite : equipe) {
+            if(etats.get(unite) != EtatUnite.TERMINEE) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
 
 /* 
-Travail demandé. Créer dans Partie une opération permettant à un Epeiste d’attaquer une Unite
-avec attaqueRapide(). La méthode vérifie l’autorisation d’agir et termine l’activation uniquement
-en cas de réussite. Depuis Main, faire attaquer Chrom contre Vaike deux fois de suite.
+Travail demandé. Créer dans Partie une méthode qui vérifie si toutes les unités d’une équipe
+passée en argument ont l’état TERMINEE. Faire attendre Frederick et Robin, puis vérifier la fin de
+la phase alliée avant et après le soin de Lissa.
 
-Contrainte. Réutiliser attaqueRapide et peutAgir. Ne pas refaire le calcul des dégâts ni modifier les
-PV directement. Ne pas appliquer une attaque si elle a été refusée.
+Contrainte. Ne pas supposer qu’il y a toujours quatre alliés. Les états ennemis ne doivent pas
+intervenir dans la vérification de l’équipe alliée.
 
-Validation. Première attaque acceptée : Vaike 17 / 25 PV ; deuxième tentative refusée : Vaike reste
-à 17 / 25 PV. */
+Validation. Avant Lissa : false ; après Lissa : true. Vaike peut être encore DISPONIBLE. */
