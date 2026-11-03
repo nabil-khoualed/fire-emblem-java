@@ -38,14 +38,8 @@
             System.out.println("\nTroupe ennemis : ");
             afficherEquipe(game.getListEnnemies());
             System.out.println("");
-            for (Unite unite : allUnits) {
-                System.out.println(unite.getName() + " : " + game.recupererEtat(unite));
-            }
 
-            for (Unite unite : allUnits) {
-                System.out.println(unite.getName() + " peut agir : " + game.peutAgir(unite));
-            }
-
+            System.out.println("Début de la phase alliée ! ");
             if(game.attaquer(chrom, vaike)) {
                 System.out.println("Chrom attaque Vaike.");
                 System.out.println("Vaike après attaque : " + vaike.afficherHp());
@@ -53,43 +47,34 @@
             else {
                 System.out.println("Chrom ne peut pas agir.");
             }
-
-            if(game.attaquer(chrom, vaike)) {
-                System.out.println("Chrom attaque Vaike.");
+            
+            if(game.attendre(frederick)) {
+                System.out.println("Frederick attend patiemment.");
             }
-            else {
-                System.out.println("Chrom ne peut pas agir.");
+            if(game.attendre(robin)) {
+                System.out.println("Robin attend impatiemment.");
             }
 
-            System.out.println("Vaike : " + vaike.afficherHp());
-            game.attendre(frederick);
-            game.attendre(robin);
-
-            System.out.println("Phase alliée terminée : " + game.phaseTerminee(allies));
-
+            System.out.println("Chrom marche sur un piège et prends 6 dégâts !");
             chrom.subirDegats(6);
-            game.soigner(lissa, chrom, 5);
-            game.soigner(lissa, chrom, 5);
+            if(game.soigner(lissa, chrom, 5)) {
+                System.out.println("Lissa soigne Chrom de 5 points de vie.");
+            }
             System.out.println("Chrom après dégâts et soin : " + chrom.afficherHp());
             System.out.println("Phase alliée terminée : " + game.phaseTerminee(allies));
-            
-            System.out.println("Phase ennemie terminée : " + game.phaseTerminee(ennemies));
-            game.attaquer(vaike, chrom);
+            System.out.println("Début de la phase alliée ! ");
+
+            if(game.attaquer(vaike, chrom))
+            {
+                System.out.println("Vaike porte un coup à Chrom !");
+            }
 
             System.out.println("Chrom après phase ennemie : " + chrom.afficherHp());
             System.out.println("Phase ennemie terminée : " + game.phaseTerminee(ennemies));
-            frederick.subirDegats(99);
             game.reinitialiserEtat(allUnits);
             System.out.println("Début du tour suivant : unités vivantes DISPONIBLE");
             for(Unite unite : allUnits) {
                 System.out.println(unite.getName() + " : " + game.recupererEtat(unite));
             }
-            System.out.println("Première attente : " + game.attendre(frederick));
-            System.out.println("Deuxième attente : " + game.attendre(frederick));
-            System.out.println("Frederick : " + frederick.afficherHp());
-            System.out.println("Robin : " + game.recupererEtat(robin));
-            game.attaquer(robin, chrom);
-            System.out.println("Chrom : " + chrom.afficherHp());
-            System.out.println("Robin : " + game.recupererEtat(robin));
         }
     }
