@@ -60,9 +60,6 @@ public class Main {
         System.out.println("\nTroupe ennemis : ");
         afficherEquipe(game.getListEnnemies());
         System.out.println("");
-
-        chrom.subirDegats(24);
-        game.modifierEtat(frederick, EtatUnite.TERMINEE);
         for (Unite unite : allUnits) {
             System.out.println(unite.getName() + " : " + game.recupererEtat(unite));
         }
@@ -70,9 +67,6 @@ public class Main {
         for (Unite unite : allUnits) {
             System.out.println(unite.getName() + " peut agir : " + game.peutAgir(unite));
         }
-
-        lissa.soignerCible(chrom, 24);
-        game.modifierEtat(frederick, EtatUnite.DISPONIBLE);
 
         if(game.attaquer(chrom, vaike)) {
             System.out.println("Chrom attaque Vaike.");
@@ -94,11 +88,8 @@ public class Main {
         game.attendre(robin);
 
         chrom.subirDegats(6);
-        if(game.peutAgir(lissa)) {
-            lissa.soignerCible(chrom, 5);
-            game.modifierEtat(lissa, EtatUnite.TERMINEE);
-
-        }
+        game.soigner(lissa, chrom, 5);
+        game.soigner(lissa, chrom, 5);
         System.out.println("Chrom après dégâts et soin : " + chrom.afficherHp());
         System.out.println("Phase alliée terminée : " + phaseTerminee(allies, game.getEtats()));
 

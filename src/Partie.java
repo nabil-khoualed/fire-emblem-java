@@ -60,6 +60,15 @@ public class Partie {
         }
         return false;
     }
+
+    public boolean soigner(Unite soigneur, Unite cible, int healAmount) {
+        if (soigneur instanceof Soigneur healer && peutAgir(soigneur)) {
+            healer.soignerCible(cible,healAmount);
+            modifierEtat(soigneur, EtatUnite.TERMINEE);
+            return true;
+        }
+        return false;
+    }
 }
 
 /* 
