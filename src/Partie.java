@@ -43,12 +43,32 @@ public class Partie {
         return unite.getCurrentHp() > 0 && etats.get(unite) == EtatUnite.DISPONIBLE;
 
     }
+
+    public boolean attendre(Unite unite) {
+        if(peutAgir(unite)) {
+            modifierEtat(unite, EtatUnite.TERMINEE);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean attaquer(Unite attaquant, Unite cible) {
+        if (attaquant instanceof Epeiste epeiste && peutAgir(attaquant)) {
+            epeiste.attaqueRapide(cible);
+            modifierEtat(attaquant, EtatUnite.TERMINEE);
+            return true;
+        }
+        return false;
+    }
 }
 
 /* 
-Travail demandé. Déplacer dans Partie la gestion de la collection associant chaque unité à son
-EtatUnite. À la création d’une partie, initialiser à DISPONIBLE les unités des deux équipes. Prévoir
-une opération permettant de consulter l’état d’une unité.
-Contrainte. Associer les états aux objets Unite, jamais aux indices. Ne pas maintenir deux copies
-indépendantes des états dans Main et Partie.
-Validation. Dans Main, les cinq unités ont l’état DISPONIBLE au début de la partie. */
+Travail demandé. Créer dans Partie une opération permettant à un Epeiste d’attaquer une Unite
+avec attaqueRapide(). La méthode vérifie l’autorisation d’agir et termine l’activation uniquement
+en cas de réussite. Depuis Main, faire attaquer Chrom contre Vaike deux fois de suite.
+
+Contrainte. Réutiliser attaqueRapide et peutAgir. Ne pas refaire le calcul des dégâts ni modifier les
+PV directement. Ne pas appliquer une attaque si elle a été refusée.
+
+Validation. Première attaque acceptée : Vaike 17 / 25 PV ; deuxième tentative refusée : Vaike reste
+à 17 / 25 PV. */
