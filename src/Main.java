@@ -2,25 +2,29 @@
     import java.util.List;
 
     public class Main {
-        public static void afficherNomEtPv(Unite unite) {
-            System.out.println(unite.typeUnite() + " " + unite.getName() + " : " + unite.afficherHp());
+        public static String afficherNomEtPv(Unite unite) {
+            return (unite.typeUnite() + " " + unite.getName() + " : " + unite.afficherHp());
+        }
+
+        public static String afficherPosition(Unite unite) {
+            return ("[" + unite.getRow() + ", " + unite.getCol() +"]");
         }
 
         public static void afficherEquipe(List<Unite> equipe) {
             for (Unite unite : equipe) {
-                afficherNomEtPv(unite);
+                System.out.println(afficherNomEtPv(unite) + ", " + afficherPosition(unite));
             }
         }
 
         public static void main(String[] args) {
-            Epeiste chrom = new Epeiste("Chrom", 24, 8);
-            Cavalier frederick = new Cavalier("Frederick", 30, 7);
-            Mage robin = new Mage("Robin", 22, 9);
-            Clerc lissa = new Clerc("Lissa", 18);
+            Epeiste chrom = new Epeiste("Chrom", 24, 24, 1, 2, 8);
+            Cavalier frederick = new Cavalier("Frederick", 30, 30, 1, 3, 7);
+            Mage robin = new Mage("Robin", 22, 22, 0, 5,9);
+            Clerc lissa = new Clerc("Lissa", 18, 18, 0, 1);
 
             ArrayList<Unite> allies = new ArrayList<>(List.of(chrom, frederick, robin, lissa));
 
-            Epeiste vaike = new Epeiste("Vaike", 25, 6);
+            Epeiste vaike = new Epeiste("Vaike", 25, 25, 3, 3, 6);
 
             ArrayList<Unite> ennemies = new ArrayList<>(List.of(vaike));
 
