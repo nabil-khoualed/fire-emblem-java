@@ -96,5 +96,7 @@ public class Main {
         game.deplacerUnite(chrom, 1, 1);
         game.deplacerUnite(chrom, 4, 4);
         System.out.println("Chrom se trouve en [" + chrom.getRow() + ", " + chrom.getCol() + "].");
+
+        game.afficherTerrain();
     }
 }

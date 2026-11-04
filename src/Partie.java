@@ -1,5 +1,4 @@
 import java.util.List;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -124,6 +123,24 @@ public class Partie {
         return false;
     }
 
+    public boolean caseOccupiedByAlly(int row, int col) {
+        for(Unite unite : allies) {
+            if(row == unite.getRow() && col == unite.getCol()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+        public boolean caseOccupiedByEnemy(int row, int col) {
+        for(Unite unite : ennemies) {
+            if(row == unite.getRow() && col == unite.getCol()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public int caseDistance(int row1, int col1, int row2, int col2) {
         int rowDistance = Math.abs(row1 - row2);
         int colDistance = Math.abs(col1 - col2);
@@ -147,5 +164,22 @@ public class Partie {
         System.out.println(unite.getName() + " s'est déplacé en [" + row + ", " + col + "].");
         modifierEtat(unite, EtatUnite.TERMINEE);
         return true;
+    }
+
+    public void afficherTerrain() {
+        for(int row = 0 ; row < rowCount ; row ++) {
+            for(int col = 0 ; col < columnCount ; col++) {
+                if(caseOccupiedByAlly(row, col)) {
+                    System.out.print("A");
+                }
+                else if(caseOccupiedByEnemy(row, col)) {
+                    System.out.print("E");
+                }
+                else{
+                    System.out.print(".");
+                }
+            }            
+            System.out.println();
+        }
     }
 }
