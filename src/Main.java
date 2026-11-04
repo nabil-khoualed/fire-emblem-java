@@ -91,6 +91,7 @@ public class Main {
         System.out.println("La distance entre [1, 1] et [3, 4] vaut : " + game.caseDistance(1, 1, 3, 4));
         System.out.println("La distance entre [2, 2] et [2, 2] vaut : " + game.caseDistance(2, 2, 2, 2));
         System.out.println("Chrom se trouve en [" + chrom.getRow() + ", " + chrom.getCol() + "].");
+        game.deplacerUnite(chrom, 1, 6);
         game.deplacerUnite(chrom, 1, 4);
         game.deplacerUnite(chrom, 1, 1);
         game.deplacerUnite(chrom, 4, 4);

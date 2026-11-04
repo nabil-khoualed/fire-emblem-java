@@ -131,7 +131,11 @@ public class Partie {
     }
 
     public boolean deplacerUnite(Unite unite, int row, int col) {
-        if(!caseExist(row, col) || caseOccupied(row, col)) {
+        if(!peutAgir(unite)) {
+            System.out.println(unite.getName() + " ne peut pas se déplacer.");
+            return false;
+        }
+        else if(!caseExist(row, col) || caseOccupied(row, col)) {
             System.out.println("Impossible de se déplacer en [" + row + ", " + col + "].");
             return false;
         }
@@ -141,6 +145,7 @@ public class Partie {
         }
         unite.deplacerVers(row, col);
         System.out.println(unite.getName() + " s'est déplacé en [" + row + ", " + col + "].");
+        modifierEtat(unite, EtatUnite.TERMINEE);
         return true;
     }
 }
