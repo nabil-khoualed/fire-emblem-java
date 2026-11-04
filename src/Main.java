@@ -84,5 +84,9 @@ public class Main {
         System.out.println("La case [-1, 2] existe : " + game.caseExist(-1, 2));
         System.out.println("La case [5, 1] existe : " + game.caseExist(5, 1));
         System.out.println("La case [2, 7] existe : " + game.caseExist(2, 7));
+
+        System.out.println("La case [1, 2] est occupée : " + game.caseOccupied(1, 2));
+        System.out.println("La case [3, 3] est occupée : " + game.caseOccupied(3, 3));
+        System.out.println("La case [4, 4] est occupée : " + game.caseOccupied(4, 4));
     }
 }
