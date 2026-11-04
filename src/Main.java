@@ -17,7 +17,7 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        Epeiste chrom = new Epeiste("Chrom", 24, 24, 1, 2, 8);
+        Epeiste chrom = new Epeiste("Chrom", 24, 24, 1, 1, 8);
         Cavalier frederick = new Cavalier("Frederick", 30, 30, 1, 3, 7);
         Mage robin = new Mage("Robin", 22, 22, 0, 5,9);
         Clerc lissa = new Clerc("Lissa", 18, 18, 0, 1);
@@ -91,8 +91,8 @@ public class Main {
         System.out.println("La distance entre [1, 1] et [3, 4] vaut : " + game.caseDistance(1, 1, 3, 4));
         System.out.println("La distance entre [2, 2] et [2, 2] vaut : " + game.caseDistance(2, 2, 2, 2));
         System.out.println("Chrom se trouve en [" + chrom.getRow() + ", " + chrom.getCol() + "].");
-        game.deplacerUnite(chrom, 5, 1);
-        game.deplacerUnite(chrom, 3, 3);
+        game.deplacerUnite(chrom, 1, 4);
+        game.deplacerUnite(chrom, 1, 1);
         game.deplacerUnite(chrom, 4, 4);
         System.out.println("Chrom se trouve en [" + chrom.getRow() + ", " + chrom.getCol() + "].");
     }

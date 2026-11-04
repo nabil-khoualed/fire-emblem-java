@@ -135,6 +135,10 @@ public class Partie {
             System.out.println("Impossible de se déplacer en [" + row + ", " + col + "].");
             return false;
         }
+        else if(caseDistance(unite.getRow(), unite.getCol(), row, col) >3) {
+            System.out.println(unite.getName() + " ne peut pas se déplacer aussi loin jusqu'en [" + row + ", " + col + "].");
+            return false;
+        }
         unite.deplacerVers(row, col);
         System.out.println(unite.getName() + " s'est déplacé en [" + row + ", " + col + "].");
         return true;
