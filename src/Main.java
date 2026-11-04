@@ -1,7 +1,5 @@
     import java.util.ArrayList;
     import java.util.List;
-    import java.util.HashMap;
-    import java.util.Map;
 
     public class Main {
         public static void afficherNomEtPv(Unite unite) {
@@ -26,7 +24,8 @@
 
             ArrayList<Unite> ennemies = new ArrayList<>(List.of(vaike));
 
-            Partie game = new Partie(allies, ennemies);
+            Partie game = new Partie(allies, ennemies, 5, 7);
+            System.out.println("Carte : \nNombre de lignes : " + game.getRowCount() + ", nombre de colonnes : " + game.getColumnCount());
 
             ArrayList<Unite> allUnits = new ArrayList<>();
             allUnits.addAll(allies);
@@ -62,7 +61,7 @@
             }
             System.out.println("Chrom après dégâts et soin : " + chrom.afficherHp());
             System.out.println("Phase alliée terminée : " + game.phaseTerminee(allies));
-            System.out.println("Début de la phase alliée ! ");
+            System.out.println("Début de la phase ennemie ! ");
 
             if(game.attaquer(vaike, chrom))
             {

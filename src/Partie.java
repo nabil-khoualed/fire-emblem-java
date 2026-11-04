@@ -6,8 +6,14 @@ public class Partie {
     private List<Unite> allies;
     private List<Unite> ennemies;
     private Map<Unite, EtatUnite> etats;
+    private int rowCount;
+    private int columnCount;
 
     Partie(List<Unite> allies, List<Unite> ennemies) {
+        this(allies, ennemies, 5, 7);
+    }
+
+    Partie(List<Unite> allies, List<Unite> ennemies, int rowCount, int columnCount) {
         this.allies = allies;
         this.ennemies = ennemies;
         this.etats = new HashMap<>();
@@ -17,7 +23,10 @@ public class Partie {
         for (Unite unite : ennemies) {
             etats.put(unite, EtatUnite.DISPONIBLE);
         }
+        this.rowCount = rowCount;
+        this.columnCount = columnCount;
     }
+    
 
     public List<Unite> getListAllies() {
         return allies;
@@ -29,6 +38,14 @@ public class Partie {
 
     public EtatUnite recupererEtat(Unite unite) {
         return etats.get(unite);
+    }
+
+    public int getRowCount() {
+        return rowCount;
+    }
+
+    public int getColumnCount() {
+        return columnCount;
     }
 
     public void modifierEtat(Unite unite, EtatUnite nouvelEtat) {
