@@ -153,7 +153,7 @@ public class Partie {
             return false;
         }
         else if(!caseExist(row, col) || caseOccupied(row, col)) {
-            System.out.println("Impossible de se déplacer en [" + row + ", " + col + "].");
+            System.out.println(unite.getName() + " ne peut pas se déplacer en [" + row + ", " + col + "].");
             return false;
         }
         else if(caseDistance(unite.getRow(), unite.getCol(), row, col) >3) {

@@ -29,7 +29,6 @@ public class Main {
         ArrayList<Unite> ennemies = new ArrayList<>(List.of(vaike));
 
         Partie game = new Partie(allies, ennemies, 5, 7);
-        System.out.println("Carte : \nNombre de lignes : " + game.getRowCount() + ", nombre de colonnes : " + game.getColumnCount());
 
         ArrayList<Unite> allUnits = new ArrayList<>();
         allUnits.addAll(allies);
@@ -42,22 +41,18 @@ public class Main {
         afficherEquipe(game.getListEnnemies());
         System.out.println("");
 
+        game.afficherTerrain();
+
+
         System.out.println("Début de la phase alliée ! ");
-        if(game.attaquer(chrom, vaike)) {
-            System.out.println("Chrom attaque Vaike.");
-            System.out.println("Vaike après attaque : " + vaike.afficherHp());
-        }
-        else {
-            System.out.println("Chrom ne peut pas agir.");
-        }
-        
-        if(game.attendre(frederick)) {
-            System.out.println("Frederick attend patiemment.");
-        }
+        game.deplacerUnite(chrom, 1 , 3);
+        game.deplacerUnite(frederick, 2, 3);
+        game.deplacerUnite(robin, 0, 8);
         if(game.attendre(robin)) {
             System.out.println("Robin attend impatiemment.");
         }
 
+        game.deplacerUnite(chrom, 0, 2);
         System.out.println("Chrom marche sur un piège et prends 6 dégâts !");
         chrom.subirDegats(6);
         if(game.soigner(lissa, chrom, 5)) {
@@ -67,36 +62,18 @@ public class Main {
         System.out.println("Phase alliée terminée : " + game.phaseTerminee(allies));
         System.out.println("Début de la phase ennemie ! ");
 
-        if(game.attaquer(vaike, chrom))
+        if(game.attaquer(vaike, frederick))
         {
-            System.out.println("Vaike porte un coup à Chrom !");
+            System.out.println("Vaike porte un coup à Frederick !");
         }
 
-        System.out.println("Chrom après phase ennemie : " + chrom.afficherHp());
+        System.out.println("Frederick après phase ennemie : " + frederick.afficherHp());
         System.out.println("Phase ennemie terminée : " + game.phaseTerminee(ennemies));
         game.reinitialiserEtat(allUnits);
         System.out.println("Début du tour suivant : unités vivantes DISPONIBLE");
         for(Unite unite : allUnits) {
             System.out.println(unite.getName() + " : " + game.recupererEtat(unite));
         }
-        System.out.println("La case [0, 0] existe : " + game.caseExist(0, 0));
-        System.out.println("La case [4, 6] existe : " + game.caseExist(4, 6));
-        System.out.println("La case [-1, 2] existe : " + game.caseExist(-1, 2));
-        System.out.println("La case [5, 1] existe : " + game.caseExist(5, 1));
-        System.out.println("La case [2, 7] existe : " + game.caseExist(2, 7));
-
-        System.out.println("La case [1, 2] est occupée : " + game.caseOccupied(1, 2));
-        System.out.println("La case [3, 3] est occupée : " + game.caseOccupied(3, 3));
-        System.out.println("La case [4, 4] est occupée : " + game.caseOccupied(4, 4));
-        System.out.println("La distance entre [1, 1] et [3, 4] vaut : " + game.caseDistance(1, 1, 3, 4));
-        System.out.println("La distance entre [2, 2] et [2, 2] vaut : " + game.caseDistance(2, 2, 2, 2));
-        System.out.println("Chrom se trouve en [" + chrom.getRow() + ", " + chrom.getCol() + "].");
-        game.deplacerUnite(chrom, 1, 6);
-        game.deplacerUnite(chrom, 1, 4);
-        game.deplacerUnite(chrom, 1, 1);
-        game.deplacerUnite(chrom, 4, 4);
-        System.out.println("Chrom se trouve en [" + chrom.getRow() + ", " + chrom.getCol() + "].");
-
         game.afficherTerrain();
     }
 }
