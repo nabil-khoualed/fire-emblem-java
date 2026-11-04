@@ -129,4 +129,14 @@ public class Partie {
         int colDistance = Math.abs(col1 - col2);
         return (rowDistance + colDistance);
     }
+
+    public boolean deplacerUnite(Unite unite, int row, int col) {
+        if(!caseExist(row, col) || caseOccupied(row, col)) {
+            System.out.println("Impossible de se déplacer en [" + row + ", " + col + "].");
+            return false;
+        }
+        unite.deplacerVers(row, col);
+        System.out.println(unite.getName() + " s'est déplacé en [" + row + ", " + col + "].");
+        return true;
+    }
 }
