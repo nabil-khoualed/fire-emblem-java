@@ -123,4 +123,10 @@ public class Partie {
         }
         return false;
     }
+
+    public int caseDistance(int row1, int col1, int row2, int col2) {
+        int rowDistance = Math.abs(row1 - row2);
+        int colDistance = Math.abs(col1 - col2);
+        return (rowDistance + colDistance);
+    }
 }

@@ -88,5 +88,8 @@ public class Main {
         System.out.println("La case [1, 2] est occupée : " + game.caseOccupied(1, 2));
         System.out.println("La case [3, 3] est occupée : " + game.caseOccupied(3, 3));
         System.out.println("La case [4, 4] est occupée : " + game.caseOccupied(4, 4));
+        System.out.println("La distance entre [1, 1] et [3, 4] vaut : " + game.caseDistance(1, 1, 3, 4));
+        System.out.println("La distance entre [2, 2] et [2, 2] vaut : " + game.caseDistance(2, 2, 2, 2));
+
     }
 }
