@@ -50,6 +50,7 @@ public class Main {
         if(game.attendre(robin)) {
             System.out.println("Robin attend impatiemment.");
         }
+        System.out.println("Robin essaie d'attendre une seconde fois : " + game.attendre(robin));
         if(game.attendre(lissa)) {
             System.out.println("Lissa attend impatiemment.");
         }
