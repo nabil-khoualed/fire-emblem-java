@@ -74,6 +74,6 @@ public abstract class Unite {
     public abstract String typeUnite();
 
     public String afficherHp() {
-        return (currentHp + " / " + maxHp + " PV");
+        return (name + " : " + currentHp + " / " + maxHp + " PV");
     }
 }
