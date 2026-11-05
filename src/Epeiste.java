@@ -27,9 +27,8 @@ public class Epeiste extends Unite {
     }
 
     @Override
-    public void afficherFiche() {
-        super.afficherFiche();
-        System.out.println("Force : " + strength);
+    public String afficherFiche() {
+        return (super.afficherFiche() + ", force : " + strength);
     }
 
     public void attaqueRapide(Unite adversaire) {

@@ -27,9 +27,8 @@ public class Mage extends Unite {
     }
 
     @Override
-    public void afficherFiche() {
-        super.afficherFiche();
-        System.out.println("Magie : " + magic);
+    public String afficherFiche() {
+        return (super.afficherFiche() + ", magie : " + magic);
     }
 
     @Override

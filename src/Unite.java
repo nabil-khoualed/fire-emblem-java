@@ -49,8 +49,9 @@ public abstract class Unite {
         return col;
     }
 
-    public void afficherFiche() {
-        System.out.println(typeUnite() + " " + name + " : " + currentHp + " / " + maxHp + " PV");
+    public String afficherFiche() {
+        return (typeUnite() + " " + name + " : " + currentHp + " / " 
+        + maxHp + " PV, [" + row + ", " + col + "]");
     }
 
     public void subirDegats(int damage) {

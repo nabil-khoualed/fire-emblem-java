@@ -28,9 +28,8 @@ public class Cavalier extends Unite {
     }
 
     @Override
-    public void afficherFiche() {
-        super.afficherFiche();
-        System.out.println("Défense : " + defense);
+    public String afficherFiche() {
+        return (super.afficherFiche() + ", défense : " + defense);
     }
 
     @Override

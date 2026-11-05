@@ -186,4 +186,20 @@ public class Partie {
             System.out.println();
         }
     }
+
+    public void afficherUnite(Unite unite) {
+        System.out.println(unite.afficherFiche() + ", peut agir : " + peutAgir(unite) + " - " + recupererEtat(unite));
+    }
+
+    public void afficherEquipeAllies() {
+        for (Unite unite : allies) {
+            System.out.println(unite.afficherFiche());
+        }
+    }
+    public void afficherEquipeEnnemies() {
+        for (Unite unite : ennemies) {
+            System.out.println(unite.afficherFiche());
+        }
+    }
+
 }
