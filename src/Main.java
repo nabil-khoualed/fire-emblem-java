@@ -47,6 +47,7 @@ public class Main {
         System.out.println("Début de la phase alliée ! ");
         game.deplacerUnite(chrom, 1 , 3);
         game.deplacerUnite(frederick, 2, 3);
+        game.deplacerUnite(frederick, 3, 5);
         System.out.println("Frederick : " + game.recupererEtat(frederick));
         System.out.println("Frederick peut agir ce tour : " + game.peutAgir(frederick));
         System.out.println("Frederick peut se déplacer ce tour : " + game.peutSeDeplacer(frederick));
