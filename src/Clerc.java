@@ -17,6 +17,6 @@ public class Clerc extends Unite implements Soigneur {
     }
 
     public void soignerCible(Unite target, int healAmount) {
-        target.soigner(healAmount);
+        target.recevoirSoin(healAmount);
     }
 }

@@ -79,5 +79,10 @@ public class Main {
             System.out.println(unite.getName() + " : " + game.recupererEtat(unite));
         }
         game.afficherTerrain();
+        game.deplacerUnite(lissa, 2, 2);
+        game.soigner(lissa, frederick, 5);
+        System.out.println("Deuxième tentative de soin : " + game.soigner(lissa, frederick, 5));
+        System.out.println("Chrom essaie de soigner frederick : " + game.soigner(chrom, frederick, 5));
+        System.out.println(afficherNomEtPv(frederick));
     }
 }

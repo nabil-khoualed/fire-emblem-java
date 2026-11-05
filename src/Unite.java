@@ -57,7 +57,7 @@ public abstract class Unite {
         currentHp = Math.max(0, currentHp - damage);
     }
 
-    public void soigner(int healAmount) {
+    public void recevoirSoin(int healAmount) {
         currentHp = Math.min(maxHp, currentHp + healAmount);
     }
 
