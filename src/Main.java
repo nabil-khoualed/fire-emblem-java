@@ -45,24 +45,24 @@ public class Main {
 
 
         System.out.println("Début de la phase alliée ! ");
-        game.deplacerUnite(chrom, 1 , 3);
         game.deplacerUnite(frederick, 2, 3);
-        game.deplacerUnite(frederick, 3, 5);
-        System.out.println("Frederick : " + game.recupererEtat(frederick));
-        System.out.println("Frederick peut agir ce tour : " + game.peutAgir(frederick));
-        System.out.println("Frederick peut se déplacer ce tour : " + game.peutSeDeplacer(frederick));
         game.deplacerUnite(robin, 0, 8);
         if(game.attendre(robin)) {
             System.out.println("Robin attend impatiemment.");
         }
-
-        game.deplacerUnite(chrom, 0, 2);
-        System.out.println("Chrom marche sur un piège et prends 6 dégâts !");
-        chrom.subirDegats(6);
-        if(game.soigner(lissa, chrom, 5)) {
-            System.out.println("Lissa soigne Chrom de 5 points de vie.");
+        if(game.attendre(lissa)) {
+            System.out.println("Lissa attend impatiemment.");
         }
-        System.out.println("Chrom après dégâts et soin : " + chrom.afficherHp());
+
+        game.deplacerUnite(chrom, 3, 2);
+        System.out.println("Chrom : " + game.recupererEtat(chrom));
+        System.out.println("Chrom peut agir ce tour : " + game.peutAgir(chrom));
+        System.out.println("Chrom peut se déplacer ce tour : " + game.peutSeDeplacer(chrom));
+
+        game.attaquer(chrom, vaike);
+        System.out.println(afficherNomEtPv(vaike));
+        game.attaquer(chrom, vaike);
+        System.out.println(afficherNomEtPv(vaike));
         System.out.println("Phase alliée terminée : " + game.phaseTerminee(allies));
         System.out.println("Début de la phase ennemie ! ");
 

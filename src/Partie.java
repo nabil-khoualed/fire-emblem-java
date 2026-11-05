@@ -78,6 +78,7 @@ public class Partie {
             modifierEtat(attaquant, EtatUnite.TERMINEE);
             return true;
         }
+        System.out.println(attaquant.getName() + " ne peut pas attaquer " + cible.getName());
         return false;
     }
 
