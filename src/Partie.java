@@ -57,8 +57,11 @@ public class Partie {
     }
 
     public boolean peutAgir(Unite unite) {
-        return unite.getCurrentHp() > 0 && etats.get(unite) == EtatUnite.DISPONIBLE;
+        return unite.getCurrentHp() > 0 && etats.get(unite) != EtatUnite.TERMINEE;
+    }
 
+    public boolean peutSeDeplacer(Unite unite) {
+        return peutAgir(unite) && etats.get(unite) != EtatUnite.DEPLACEE;
     }
 
     public boolean attendre(Unite unite) {
@@ -148,7 +151,7 @@ public class Partie {
     }
 
     public boolean deplacerUnite(Unite unite, int row, int col) {
-        if(!peutAgir(unite)) {
+        if(!peutSeDeplacer(unite)) {
             System.out.println(unite.getName() + " ne peut pas se déplacer.");
             return false;
         }
@@ -162,7 +165,7 @@ public class Partie {
         }
         unite.deplacerVers(row, col);
         System.out.println(unite.getName() + " s'est déplacé en [" + row + ", " + col + "].");
-        modifierEtat(unite, EtatUnite.TERMINEE);
+        modifierEtat(unite, EtatUnite.DEPLACEE);
         return true;
     }
 
