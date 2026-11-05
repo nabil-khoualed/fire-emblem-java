@@ -46,15 +46,13 @@ public class Main {
 
         System.out.println("Début de la phase alliée ! ");
         game.deplacerUnite(frederick, 2, 3);
-        game.deplacerUnite(robin, 0, 8);
-        if(game.attendre(robin)) {
-            System.out.println("Robin attend impatiemment.");
+        if(game.attendre(frederick)) {
+            System.out.println("Frederick attend impatiemment.");
         }
-        System.out.println("Robin essaie d'attendre une seconde fois : " + game.attendre(robin));
+        game.deplacerUnite(robin, 0, 8);
         if(game.attendre(lissa)) {
             System.out.println("Lissa attend impatiemment.");
         }
-
         game.deplacerUnite(chrom, 3, 2);
         System.out.println("Chrom : " + game.recupererEtat(chrom));
         System.out.println("Chrom peut agir ce tour : " + game.peutAgir(chrom));
@@ -64,6 +62,10 @@ public class Main {
         System.out.println(afficherNomEtPv(vaike));
         game.attaquer(chrom, vaike);
         System.out.println(afficherNomEtPv(vaike));
+        System.out.println("Phase alliée terminée : " + game.phaseTerminee(allies));
+        if(game.attendre(robin)) {
+            System.out.println("Robin attend impatiemment.");
+        }
         System.out.println("Phase alliée terminée : " + game.phaseTerminee(allies));
         System.out.println("Début de la phase ennemie ! ");
 
