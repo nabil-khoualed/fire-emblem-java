@@ -67,11 +67,26 @@ public class Main {
         }
         game.afficherTerrain();
 
-        for(Arme arme : Arme.values()) {
+        for(CategorieArme arme : CategorieArme.values()) {
             System.out.println(arme);
         }
-        // Les enums sont des constant, comme des variables inchangeables.
-        // Les catégories d'armes sont immuables, chaque arme créé ensuite
-        // fera obligatoirement faire partie d'une de ces catégories.
+        Arme epeeBronze = new Arme("Epee Bronze", CategorieArme.EPEE, 3, 100, 0, 1, 1, 50, 1, 350);
+        Arme epeeFer = new Arme("Epee fer", CategorieArme.EPEE, 5, 95, 0, 1, 1, 40, 3, 520);
+        Arme feu = new Arme("Feu", CategorieArme.TOME, 2, 90, 0, 1, 2, 45, 1, 540); 
+        System.out.println(epeeFer.afficherFiche());
+        System.out.println(epeeBronze.afficherFiche());
+        System.out.println(feu.afficherFiche());
+
+        try {
+            Arme testEpee1 = new Arme("Test Epee 1", CategorieArme.EPEE, 3, 100, 0, 2, 1, 50, 1, 350);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
+
+        try {
+            Arme testEpee2 = new Arme("Test Epee 2", CategorieArme.EPEE, 3, 100, 0, 1, 1, -4, 1, 350);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
