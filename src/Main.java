@@ -66,5 +66,12 @@ public class Main {
             System.out.println(unite.getName() + " : " + game.recupererEtat(unite));
         }
         game.afficherTerrain();
+
+        for(Arme arme : Arme.values()) {
+            System.out.println(arme);
+        }
+        // Les enums sont des constant, comme des variables inchangeables.
+        // Les catégories d'armes sont immuables, chaque arme créé ensuite
+        // fera obligatoirement faire partie d'une de ces catégories.
     }
 }
