@@ -72,9 +72,23 @@ public class Partie {
         return false;
     }
 
+    public boolean peutAttaquer(Unite attaquant, Unite cible) {
+        Arme arme = attaquant.getArmeEquipee();
+        int distance = distanceEntreUnites(attaquant, cible);
+        if(peutAgir(attaquant) &&
+        arme != null &&
+        arme.getRemainingUses() > 0 &&
+        distance >= arme.getMinRange() &&
+        distance <= arme.getMaxRange()){
+            return true;
+        }
+        return false;
+    }
+
     public boolean attaquer(Unite attaquant, Unite cible) {
-        if (attaquant instanceof Epeiste epeiste && peutAgir(attaquant)) {
-            epeiste.attaqueRapide(cible);
+        if(peutAttaquer(attaquant, cible)) {
+            attaquant.attaqueRapide(cible);
+            System.out.println(attaquant.getName() + " attaque " + cible.getName());
             modifierEtat(attaquant, EtatUnite.TERMINEE);
             return true;
         }
@@ -149,6 +163,10 @@ public class Partie {
         int rowDistance = Math.abs(row1 - row2);
         int colDistance = Math.abs(col1 - col2);
         return (rowDistance + colDistance);
+    }
+
+    public int distanceEntreUnites(Unite unite1, Unite unite2) {
+        return caseDistance(unite1.getRow(), unite1.getCol(), unite2.getRow(), unite2.getCol());
     }
 
     public boolean deplacerUnite(Unite unite, int row, int col) {
