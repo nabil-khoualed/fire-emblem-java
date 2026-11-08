@@ -1,9 +1,26 @@
+import java.util.List;
+import java.util.ArrayList;
+
 public abstract class Unite {
     private String name;
     private int currentHp;
     private int maxHp;
     private int row;
     private int col;
+    private List<Arme> inventory = new ArrayList<>(5);
+
+    public boolean ajouterObjet(Arme arme) {
+        if(inventory.size() <5) {
+            inventory.add(arme);
+            System.out.println(arme.getName() + " a été ajouté à l'inventaire de " + name + ".");
+            return true;
+        }
+        else {
+            System.out.println("Inventaire de " + name + " plein, impossible d'ajouter " + arme.getName() + ".");
+            return false;
+        }
+
+    }
 
     Unite(String name, int currentHp, int maxHp, int row, int col) {
         this.name = name;
@@ -49,6 +66,10 @@ public abstract class Unite {
         return col;
     }
 
+    public List<Arme> getInventory() {
+        return inventory;
+    }
+
     public String afficherFiche() {
         return (typeUnite() + " " + name + " : " + currentHp + " / " 
         + maxHp + " PV, [" + row + ", " + col + "]");
@@ -75,5 +96,20 @@ public abstract class Unite {
 
     public String afficherHp() {
         return (name + " : " + currentHp + " / " + maxHp + " PV");
+    }
+
+    public String afficherInventaire() {
+        if(inventory.size() == 0) {
+            return "[]";
+        }
+        else {
+            StringBuilder inventoryList = new StringBuilder();
+            inventoryList.append("[");
+            for(int i = 0; i < inventory.size()-1 ; i++) {
+                inventoryList.append(inventory.get(i).getName() + " | ");
+            }
+            inventoryList.append(inventory.get(inventory.size() -1).getName() + "]");
+            return inventoryList.toString();
+        }
     }
 }

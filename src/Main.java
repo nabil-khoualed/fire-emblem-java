@@ -88,5 +88,14 @@ public class Main {
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
+
+        chrom.ajouterObjet(epeeBronze);
+        chrom.ajouterObjet(epeeBronze);
+        chrom.ajouterObjet(epeeBronze);
+        chrom.ajouterObjet(epeeBronze);
+        chrom.ajouterObjet(epeeBronze);
+        System.out.println("Inventaire de Chrom : " + chrom.afficherInventaire());
+        chrom.ajouterObjet(epeeFer);
+        System.out.println("Inventaire de Chrom : " + chrom.afficherInventaire());
     }
 }
