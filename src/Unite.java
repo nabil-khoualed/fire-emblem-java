@@ -119,8 +119,17 @@ public abstract class Unite {
         + maxHp + " PV, force : " + strength + ", magie : " + magic + ", défense : " + defense + ", résistance : " + resistance + ", vitesse : " + speed + ", mouvements : " + movement + ", position : [" + row + ", " + col + "], arme équipée : " + afficherArmeEquipee());
     }
 
-    public void attaqueRapide(Unite adversaire) {
-        adversaire.subirDegats(strength);
+    public int calculerDegats(Unite cible) {
+        if(armeEquipee == null) {
+            return 0;
+        }
+        if(armeEquipee.getCategorie() == CategorieArme.TOME) {
+            return Math.max(0, magic + armeEquipee.getMight() - cible.getResistance());
+        }
+        else if(armeEquipee.getCategorie() != CategorieArme.BATON) {
+            return Math.max(0, strength + armeEquipee.getMight() - cible.getDefense());
+        }
+        return 0;
     }
 
     public void subirDegats(int damage) {

@@ -77,6 +77,7 @@ public class Partie {
         int distance = distanceEntreUnites(attaquant, cible);
         if(peutAgir(attaquant) &&
         arme != null &&
+        arme.getCategorie() != CategorieArme.BATON &&
         arme.getRemainingUses() > 0 &&
         distance >= arme.getMinRange() &&
         distance <= arme.getMaxRange()){
@@ -87,7 +88,7 @@ public class Partie {
 
     public boolean attaquer(Unite attaquant, Unite cible) {
         if(peutAttaquer(attaquant, cible)) {
-            attaquant.attaqueRapide(cible);
+            cible.subirDegats(attaquant.calculerDegats(cible));
             System.out.println(attaquant.getName() + " attaque " + cible.getName());
             modifierEtat(attaquant, EtatUnite.TERMINEE);
             return true;

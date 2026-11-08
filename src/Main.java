@@ -6,7 +6,7 @@ public class Main {
         Epeiste chrom = new Epeiste("Chrom", 24, 24, 8, 2,
         5, 3, 8, 5, 1, 1, 3);
         Cavalier frederick = new Cavalier("Frederick", 4, 30, 10, 0,
-        9, 4, 6, 7, 1, 3, 5);
+        13, 4, 6, 7, 1, 3, 5);
         Mage robin = new Mage("Robin", 22, 22, 3, 9,
         3, 7, 7, 5, 0, 5);
         Clerc lissa = new Clerc("Lissa", 18, 18, 0, 7,
@@ -14,8 +14,8 @@ public class Main {
 
         ArrayList<Unite> allies = new ArrayList<>(List.of(chrom, frederick, robin, lissa));
 
-        Archer vaike = new Archer("Vaike", 25, 25, 6, 0,
-        4, 2, 5, 5, 3, 3);
+        Archer vaike = new Archer("Vaike", 45, 45, 7, 2,
+        4, 5, 7, 5, 3, 3, 10);
 
         ArrayList<Unite> ennemies = new ArrayList<>(List.of(vaike));
 
@@ -72,6 +72,10 @@ public class Main {
         System.out.println(vaike.afficherHp());
 
         game.deplacerUnite(lissa, 1, 2);
+        System.out.println("Lissa peut attaquer Vaike avec un baton : " + game.attaquer(lissa, vaike));
+        System.out.println("Lissa : " + game.recupererEtat(lissa));
+        System.out.println(vaike.afficherHp());
+
         if(game.attendre(lissa)) {
             System.out.println("Lissa attend.");
         }
@@ -80,6 +84,10 @@ public class Main {
         System.out.println("Frederick peut attaquer sans arme equipée : " + game.attaquer(frederick, vaike));
         System.out.println("Frederick : " + game.recupererEtat(frederick));
         System.out.println(vaike.afficherHp());
+
+        if(game.attendre(frederick)) {
+            System.out.println("Frederick attend.");
+        }
 
         game.deplacerUnite(robin, 3, 5);
         System.out.println("Robin peut attaquer avec une arme épuisée : " + game.attaquer(robin, vaike));
