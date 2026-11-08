@@ -5,10 +5,18 @@ public abstract class Unite {
     private String name;
     private int currentHp;
     private int maxHp;
+    private int strength;
+    private int magic;
+    private int defense;
+    private int resistance;
+    private int speed;
+    private int movement;
+
     private int row;
     private int col;
     private int level = 1;
     private List<Arme> inventory = new ArrayList<>(5);
+    private Arme armeEquipee;
 
     public boolean ajouterObjet(Arme arme) {
         if(inventory.size() <5) {
@@ -23,28 +31,23 @@ public abstract class Unite {
 
     }
 
-    Unite(String name, int currentHp, int maxHp, int row, int col) {
+    Unite(String name, int currentHp, int maxHp, int strength, int magic, int defense, int resistance, int speed, int movement, int row, int col) {
+        this(name, currentHp, maxHp, strength, magic, defense, resistance, speed, movement, row, col, 1);
+    }
+
+    Unite(String name, int currentHp, int maxHp, int strength, int magic, int defense, int resistance, int speed, int movement, int row, int col, int level) {
         this.name = name;
         this.currentHp = currentHp;
         this.maxHp = maxHp;
+        this.strength = strength;
+        this.magic = magic;
+        this.defense = defense;
+        this.resistance = resistance;
+        this.speed = speed;
+        this.movement = movement;
         this.row = row;
         this.col = col;
-    }
-
-    Unite(String name) {
-        this.name = name;
-    }
-
-    Unite(String name, int currentHp, int maxHp) {
-        this.name = name;
-        this.currentHp = currentHp;
-        this.maxHp = maxHp;
-    }
-
-    Unite(String name, int maxHp) {
-        this.name = name;
-        this.currentHp = maxHp;
-        this.maxHp = maxHp;
+        this.level = level;
     }
 
     public String getName() {
@@ -58,6 +61,38 @@ public abstract class Unite {
     public int getMaxHp() {
         return maxHp;
     }
+    
+    public int getStrength() {
+        return strength;
+    }
+
+    public int getMagic() {
+        return magic;
+    }
+
+    public int getDefense() {
+        return defense;
+    }
+
+    public int getResistance() {
+        return resistance;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public int getMovement() {
+        return movement;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public Arme getArmeEquipee() {
+        return armeEquipee;
+    }
 
     public int getRow() {
         return row;
@@ -67,13 +102,13 @@ public abstract class Unite {
         return col;
     }
 
-    public List<Arme> getInventory() {
-        return inventory;
+    public String afficherFiche() {
+        return (typeUnite() + " " + name + ", niveau " + level + " : " + currentHp + "/" 
+        + maxHp + " PV, force : " + strength + ", magie : " + magic + ", défense : " + defense + ", résistance : " + resistance + ", vitesse : " + speed + ", mouvements : " + movement + ", [" + row + ", " + col + "]");
     }
 
-    public String afficherFiche() {
-        return (typeUnite() + " " + name + " : " + currentHp + " / " 
-        + maxHp + " PV, [" + row + ", " + col + "]");
+    public void attaqueRapide(Unite adversaire) {
+        adversaire.subirDegats(strength);
     }
 
     public void subirDegats(int damage) {
@@ -87,10 +122,6 @@ public abstract class Unite {
     public void deplacerVers(int row, int col) {
         this.row = row;
         this.col = col;
-    }
-
-    public void annoncerAction() {
-        System.out.println(name + " attend.");
     }
 
     public abstract String typeUnite();
@@ -118,5 +149,17 @@ public abstract class Unite {
 
     public boolean peutEquiper(Arme arme) {
         return arme.getLevelRequired() <= level && peutManier(arme.getCategorie());
+    }
+
+    public boolean equiperArme(Arme arme) {
+        if(peutEquiper(arme) && inventory.contains(arme)) {
+            armeEquipee = arme;
+            System.out.println(name + " a équipé " + arme.getName());
+            return true;
+        }
+        else {
+            System.out.println(name + " ne peut pas équiper " + arme.getName());
+            return false;
+        }
     }
 }

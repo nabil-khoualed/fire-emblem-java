@@ -3,14 +3,19 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        Epeiste chrom = new Epeiste("Chrom", 24, 24, 1, 1, 8);
-        Cavalier frederick = new Cavalier("Frederick", 4, 30, 1, 3, 7);
-        Mage robin = new Mage("Robin", 22, 22, 0, 5,9);
-        Clerc lissa = new Clerc("Lissa", 18, 18, 0, 1);
+        Epeiste chrom = new Epeiste("Chrom", 24, 24, 8, 2,
+        5, 3, 8, 5, 1, 1, 3);
+        Cavalier frederick = new Cavalier("Frederick", 4, 30, 10, 0,
+        9, 4, 6, 7, 1, 3);
+        Mage robin = new Mage("Robin", 22, 22, 3, 9,
+        3, 7, 7, 5, 0, 5);
+        Clerc lissa = new Clerc("Lissa", 18, 18, 0, 7,
+        2, 8, 7, 5, 0, 1);
 
         ArrayList<Unite> allies = new ArrayList<>(List.of(chrom, frederick, robin, lissa));
 
-        Epeiste vaike = new Epeiste("Vaike", 25, 25, 3, 3, 6);
+        Epeiste vaike = new Epeiste("Vaike", 25, 25, 6, 0,
+        4, 2, 5, 5, 3, 3);
 
         ArrayList<Unite> ennemies = new ArrayList<>(List.of(vaike));
 
@@ -95,8 +100,6 @@ public class Main {
         chrom.ajouterObjet(epeeBronze);
         chrom.ajouterObjet(epeeBronze);
         chrom.ajouterObjet(epeeBronze);
-        chrom.ajouterObjet(epeeBronze);
-        System.out.println("Inventaire de Chrom : " + chrom.afficherInventaire());
         chrom.ajouterObjet(epeeFer);
         System.out.println("Inventaire de Chrom : " + chrom.afficherInventaire());
 
@@ -107,5 +110,9 @@ public class Main {
         System.out.println("Robin peut equiper Feu : " + robin.peutEquiper(feu));
         System.out.println("Chrom peut equiper Feu : " + chrom.peutEquiper(feu));
 
+        chrom.equiperArme(feu);
+        chrom.equiperArme(epeeBronze);
+        chrom.equiperArme(epeeFer);
+        chrom.equiperArme(epeeBronze);
     }
 }

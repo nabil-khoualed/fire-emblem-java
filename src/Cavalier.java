@@ -1,40 +1,10 @@
 public class Cavalier extends Unite {
-    private int defense;
-
-    Cavalier(String name) {
-        super(name);
+    Cavalier(String name, int currentHp, int maxHp, int strength, int magic, int defense, int resistance, int speed, int movement, int row, int col) {
+        this(name, currentHp, maxHp, strength, magic, defense, resistance, speed, movement, row, col, 1);
     }
 
-    Cavalier(String name, int maxHp) {
-        this(name, maxHp, maxHp);
-    }
-
-    Cavalier(String name, int maxHp, int defense) {
-        this(name, maxHp, maxHp, defense);
-    }
-
-    Cavalier(String name, int currentHp, int maxHp, int defense) {
-        this(name, currentHp, maxHp, 0, 0, defense);
-    }
-
-    Cavalier(String name, int currentHp, int maxHp, int row, int col, int defense) {
-        super(name, currentHp, maxHp, row, col);
-        this.defense = defense;
-
-    }
-
-    public int getDefense() {
-        return defense;
-    }
-
-    @Override
-    public String afficherFiche() {
-        return (super.afficherFiche() + ", défense : " + defense);
-    }
-
-    @Override
-    public void annoncerAction() {
-        System.out.println(getName() + " avance à cheval.");
+    Cavalier(String name, int currentHp, int maxHp, int strength, int magic, int defense, int resistance, int speed, int movement, int row, int col, int level) {
+        super(name, currentHp, maxHp, strength, magic, defense, resistance, speed, movement, row, col, level);
     }
 
     @Override
