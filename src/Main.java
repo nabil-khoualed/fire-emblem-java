@@ -75,11 +75,18 @@ public class Main {
         for(CategorieArme arme : CategorieArme.values()) {
             System.out.println(arme);
         }
-        Arme epeeBronze = new Arme("Epee Bronze", CategorieArme.EPEE, 3, 100, 0, 1, 1, 50, 1, 350);
-        Arme lanceAcier = new Arme("Lance Acier", CategorieArme.LANCE, 9, 80, 0, 1, 1, 35, 5, 910);
-        Arme remede = new Arme("Remède", CategorieArme.BATON, 10, 100, 0, 1, 5, 10, 8, 1800);
-        Arme epeeFer = new Arme("Epee fer", CategorieArme.EPEE, 5, 95, 0, 1, 1, 40, 3, 520);
-        Arme feu = new Arme("Feu", CategorieArme.TOME, 2, 90, 0, 1, 2, 45, 1, 540); 
+        Arme epeeBronze = new Arme("Epee Bronze", CategorieArme.EPEE, 3, 100,
+        0, 1, 1, 50, 1, 350);
+        Arme epeeRouillee = new Arme("Epee Rouillée", CategorieArme.EPEE, 1, 100,
+        0, 1, 1, 1, 2, 1);
+        Arme lanceAcier = new Arme("Lance Acier", CategorieArme.LANCE, 9, 80,
+        0, 1, 1, 35, 5, 910);
+        Arme remede = new Arme("Remède", CategorieArme.BATON, 10, 100,
+        0, 1, 5, 10, 8, 1800);
+        Arme epeeFer = new Arme("Epee fer", CategorieArme.EPEE, 5, 95,
+        0, 1, 1, 40, 3, 520);
+        Arme feu = new Arme("Feu", CategorieArme.TOME, 2, 90,
+        0, 1, 2, 45, 1, 540); 
         System.out.println(epeeFer.afficherFiche());
         System.out.println(epeeBronze.afficherFiche());
         System.out.println(feu.afficherFiche());
@@ -99,7 +106,7 @@ public class Main {
         chrom.ajouterObjet(epeeBronze);
         chrom.ajouterObjet(epeeBronze);
         chrom.ajouterObjet(epeeBronze);
-        chrom.ajouterObjet(epeeBronze);
+        chrom.ajouterObjet(feu);
         chrom.ajouterObjet(epeeFer);
         System.out.println("Inventaire de Chrom : " + chrom.afficherInventaire());
 
@@ -111,8 +118,13 @@ public class Main {
         System.out.println("Chrom peut equiper Feu : " + chrom.peutEquiper(feu));
 
         chrom.equiperArme(feu);
+        chrom.equiperArme(epeeRouillee);
         chrom.equiperArme(epeeBronze);
+        System.out.println(chrom.afficherFiche());
         chrom.equiperArme(epeeFer);
+        System.out.println(chrom.afficherFiche());
         chrom.equiperArme(epeeBronze);
+        System.out.println(chrom.afficherFiche());
+        System.out.println(chrom.afficherFicheComplete());
     }
 }

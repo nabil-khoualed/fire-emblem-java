@@ -102,9 +102,21 @@ public abstract class Unite {
         return col;
     }
 
+    public String afficherArmeEquipee() {
+        if(armeEquipee == null) {
+            return "Aucune";
+        }
+        return armeEquipee.getName();
+    }
+
     public String afficherFiche() {
+        return (typeUnite() + " " + name + " (Niv. " + level + ") | PV : " + currentHp + "/" 
+        + maxHp + " | Pos : [" + row + ", " + col + "] | Arme : " + afficherArmeEquipee());
+    }
+
+    public String afficherFicheComplete() {
         return (typeUnite() + " " + name + ", niveau " + level + " : " + currentHp + "/" 
-        + maxHp + " PV, force : " + strength + ", magie : " + magic + ", défense : " + defense + ", résistance : " + resistance + ", vitesse : " + speed + ", mouvements : " + movement + ", [" + row + ", " + col + "]");
+        + maxHp + " PV, force : " + strength + ", magie : " + magic + ", défense : " + defense + ", résistance : " + resistance + ", vitesse : " + speed + ", mouvements : " + movement + ", position : [" + row + ", " + col + "], arme équipée : " + afficherArmeEquipee());
     }
 
     public void attaqueRapide(Unite adversaire) {
