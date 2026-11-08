@@ -7,6 +7,7 @@ public abstract class Unite {
     private int maxHp;
     private int row;
     private int col;
+    private int level = 1;
     private List<Arme> inventory = new ArrayList<>(5);
 
     public boolean ajouterObjet(Arme arme) {
@@ -111,5 +112,11 @@ public abstract class Unite {
             inventoryList.append(inventory.get(inventory.size() -1).getName() + "]");
             return inventoryList.toString();
         }
+    }
+
+    public abstract boolean peutManier(CategorieArme categorie);
+
+    public boolean peutEquiper(Arme arme) {
+        return arme.getLevelRequired() <= level && peutManier(arme.getCategorie());
     }
 }

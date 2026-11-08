@@ -41,4 +41,8 @@ public class Cavalier extends Unite {
     public String typeUnite() {
         return "Cavalier";
     }
+
+    public boolean peutManier(CategorieArme categorie) {
+        return categorie == CategorieArme.EPEE || categorie == CategorieArme.LANCE;
+    }
 }

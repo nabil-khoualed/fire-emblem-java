@@ -44,4 +44,8 @@ public class Epeiste extends Unite {
     public String typeUnite() {
         return "Épéiste";
     }
+
+    public boolean peutManier(CategorieArme categorie) {
+        return categorie == CategorieArme.EPEE;
+    }
 }

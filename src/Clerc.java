@@ -19,4 +19,8 @@ public class Clerc extends Unite implements Soigneur {
     public void soignerCible(Unite target, int healAmount) {
         target.recevoirSoin(healAmount);
     }
+
+    public boolean peutManier(CategorieArme categorie) {
+        return categorie == CategorieArme.BATON;
+    }
 }

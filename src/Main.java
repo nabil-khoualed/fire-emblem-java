@@ -71,6 +71,8 @@ public class Main {
             System.out.println(arme);
         }
         Arme epeeBronze = new Arme("Epee Bronze", CategorieArme.EPEE, 3, 100, 0, 1, 1, 50, 1, 350);
+        Arme lanceAcier = new Arme("Lance Acier", CategorieArme.LANCE, 9, 80, 0, 1, 1, 35, 5, 910);
+        Arme remede = new Arme("Remède", CategorieArme.BATON, 10, 100, 0, 1, 5, 10, 8, 1800);
         Arme epeeFer = new Arme("Epee fer", CategorieArme.EPEE, 5, 95, 0, 1, 1, 40, 3, 520);
         Arme feu = new Arme("Feu", CategorieArme.TOME, 2, 90, 0, 1, 2, 45, 1, 540); 
         System.out.println(epeeFer.afficherFiche());
@@ -97,5 +99,13 @@ public class Main {
         System.out.println("Inventaire de Chrom : " + chrom.afficherInventaire());
         chrom.ajouterObjet(epeeFer);
         System.out.println("Inventaire de Chrom : " + chrom.afficherInventaire());
+
+        System.out.println("Lissa peut équiper remède : " + lissa.peutEquiper(remede));
+        System.out.println("Chrom peut équiper Epee Bronze : " + chrom.peutEquiper(epeeBronze));
+        System.out.println("Chrom peut equiper Epee Fer : " + chrom.peutEquiper(epeeFer));
+        System.out.println("Frederick peut equiper Lance Acier : " + frederick.peutEquiper(lanceAcier));
+        System.out.println("Robin peut equiper Feu : " + robin.peutEquiper(feu));
+        System.out.println("Chrom peut equiper Feu : " + chrom.peutEquiper(feu));
+
     }
 }

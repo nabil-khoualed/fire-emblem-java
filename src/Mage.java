@@ -40,4 +40,8 @@ public class Mage extends Unite {
     public void annoncerAction() {
         System.out.println(getName() + " prépare son bâton.");
     }
+
+    public boolean peutManier(CategorieArme categorie) {
+        return categorie == CategorieArme.TOME;
+    }
 }
