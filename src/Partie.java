@@ -91,6 +91,7 @@ public class Partie {
             cible.subirDegats(attaquant.calculerDegats(cible));
             System.out.println(attaquant.getName() + " attaque " + cible.getName());
             modifierEtat(attaquant, EtatUnite.TERMINEE);
+            attaquant.getArmeEquipee().consommerUtilisation();
             return true;
         }
         System.out.println(attaquant.getName() + " ne peut pas attaquer " + cible.getName());

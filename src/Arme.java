@@ -74,6 +74,12 @@ public class Arme {
         "% | Critique : " + crit + "% | Portée : " + minRange + "-" + maxRange + " | Utilisations : " +
         remainingUses + " | Niveau requis : " + levelRequired + " | Prix : " + price);
     }
+
+    public void consommerUtilisation() {
+        if(remainingUses > 0) {
+            remainingUses--;
+        }
+    }
 }
 
 

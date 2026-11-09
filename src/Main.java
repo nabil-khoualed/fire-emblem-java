@@ -5,8 +5,8 @@ public class Main {
     public static void main(String[] args) {
         Epeiste chrom = new Epeiste("Chrom", 24, 24, 8, 2,
         5, 3, 8, 5, 1, 1, 3);
-        Cavalier frederick = new Cavalier("Frederick", 4, 30, 10, 0,
-        13, 4, 6, 7, 1, 3, 5);
+        Cavalier frederick = new Cavalier("Frederick", 18, 30, 10, 0,
+        8, 4, 6, 7, 1, 3, 5);
         Mage robin = new Mage("Robin", 22, 22, 3, 9,
         3, 7, 7, 5, 0, 5);
         Clerc lissa = new Clerc("Lissa", 18, 18, 0, 7,
@@ -26,14 +26,14 @@ public class Main {
         Arme lanceAcier = new Arme("Lance Acier", CategorieArme.LANCE, 9, 80,
         0, 1, 1, 35, 5, 910);
         Arme remede = new Arme("Remède", CategorieArme.BATON, 10, 100,
-        0, 1, 5, 10, 8, 1800);
+        0, 1, 5, 40, 8, 1800);
         Arme epeeFer = new Arme("Epee fer", CategorieArme.EPEE, 5, 95,
-        0, 1, 1, 40, 3, 520);
+        0, 1, 1, 1, 3, 520);
         Arme feu = new Arme("Feu", CategorieArme.TOME, 2, 90,
         0, 1, 2, 45, 1, 540); 
         Arme foudre = new Arme("Foudre", CategorieArme.TOME, 3, 80,
         5, 1, 2, 0, 1, 630); 
-        Arme arcBronze = new Arme("Arc Bronze", CategorieArme.ARC, 3, 90, 0, 2, 2, 50, 1, 350);
+        Arme arcBronze = new Arme("Arc Bronze", CategorieArme.ARC, 6, 90, 0, 2, 2, 50, 1, 350);
 
         chrom.ajouterObjet(epeeBronze);
         chrom.ajouterObjet(epeeFer);
@@ -68,8 +68,10 @@ public class Main {
         System.out.println(vaike.afficherHp());
 
         game.deplacerUnite(chrom, 3, 2);
+        System.out.println(chrom.getArmeEquipee().afficherFiche());
         game.attaquer(chrom, vaike);
         System.out.println(vaike.afficherHp());
+        System.out.println(chrom.getArmeEquipee().afficherFiche());
 
         game.deplacerUnite(lissa, 1, 2);
         System.out.println("Lissa peut attaquer Vaike avec un baton : " + game.attaquer(lissa, vaike));
@@ -116,5 +118,9 @@ public class Main {
             System.out.println(unite.getName() + " : " + game.recupererEtat(unite));
         }
         game.afficherTerrain();
+        game.deplacerUnite(chrom, 4, 2);
+        game.attaquer(chrom, vaike);
+        System.out.println(vaike.afficherHp());
+        System.out.println(chrom.getArmeEquipee().afficherFiche());
     }
 }
