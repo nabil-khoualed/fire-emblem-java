@@ -64,6 +64,14 @@ public class Partie {
         return peutAgir(unite) && etats.get(unite) != EtatUnite.DEPLACEE;
     }
 
+    public boolean memeEquipe(Unite unite1, Unite unite2) {
+        return (allies.contains(unite1) && allies.contains(unite2)) || (ennemies.contains(unite1) && ennemies.contains(unite2));
+    }
+
+    public boolean equipeOpposee(Unite unite1, Unite unite2) {
+        return (allies.contains(unite1) && ennemies.contains(unite2)) || (allies.contains(unite2) && ennemies.contains(unite1)); 
+    }
+
     public boolean attendre(Unite unite) {
         if(peutAgir(unite)) {
             modifierEtat(unite, EtatUnite.TERMINEE);
@@ -79,8 +87,28 @@ public class Partie {
         arme != null &&
         arme.getCategorie() != CategorieArme.BATON &&
         arme.getRemainingUses() > 0 &&
+        cible.getCurrentHp() > 0 &&
         distance >= arme.getMinRange() &&
-        distance <= arme.getMaxRange()){
+        distance <= arme.getMaxRange() &&
+        equipeOpposee(attaquant, cible)){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean peutSoigner(Unite soigneur, Unite cible) {
+        Arme arme = soigneur.getArmeEquipee();
+        int distance = distanceEntreUnites(soigneur, cible);
+        if(peutAgir(soigneur) &&
+        arme != null &&
+        arme.getCategorie() == CategorieArme.BATON &&
+        (arme.getEffetBaton() == EffetBaton.SOIN || arme.getEffetBaton() == EffetBaton.SOIN_COMPLET) &&
+        arme.getRemainingUses() > 0 &&
+        distance >= arme.getMinRange() &&
+        distance <= arme.getMaxRange() &&
+        cible.getCurrentHp() > 0 &&
+        cible.getCurrentHp() < cible.getMaxHp() &&
+        memeEquipe(soigneur, cible)) {
             return true;
         }
         return false;
@@ -98,12 +126,16 @@ public class Partie {
         return false;
     }
 
-    public boolean soigner(Unite soigneur, Unite cible, int healAmount) {
-        if (soigneur instanceof Soigneur healer && peutAgir(soigneur)) {
-            healer.soignerCible(cible,healAmount);
+    public boolean soigner(Unite soigneur, Unite cible) {
+        if(peutSoigner(soigneur, cible)) {
+            int healAmount = soigneur.calculerSoin(cible);
+            cible.recevoirSoin(healAmount);
+            System.out.println(soigneur.getName() + " soigne " + cible.getName() + " de " + healAmount + " points de vie.");
             modifierEtat(soigneur, EtatUnite.TERMINEE);
+            soigneur.getArmeEquipee().consommerUtilisation();
             return true;
         }
+        System.out.println(soigneur.getName() + " ne peut pas soigner " + cible.getName());
         return false;
     }
 
@@ -180,7 +212,7 @@ public class Partie {
             System.out.println(unite.getName() + " ne peut pas se déplacer en [" + row + ", " + col + "].");
             return false;
         }
-        else if(caseDistance(unite.getRow(), unite.getCol(), row, col) >3) {
+        else if(caseDistance(unite.getRow(), unite.getCol(), row, col) >unite.getMovement()) {
             System.out.println(unite.getName() + " ne peut pas se déplacer aussi loin jusqu'en [" + row + ", " + col + "].");
             return false;
         }

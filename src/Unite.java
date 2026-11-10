@@ -132,6 +132,20 @@ public abstract class Unite {
         return 0;
     }
 
+    public int calculerSoin(Unite cible) {
+        int missingHp = cible.getMaxHp() - cible.getCurrentHp();
+        if(armeEquipee == null || armeEquipee.getCategorie() != CategorieArme.BATON) {
+            return 0;
+        }
+        if(armeEquipee.getEffetBaton() == EffetBaton.SOIN_COMPLET) {
+            return missingHp;
+        }
+        if(armeEquipee.getEffetBaton() == EffetBaton.SOIN) {
+            return Math.min((magic / 2 + armeEquipee.getMight()), missingHp);
+        }
+        return 0;
+    }
+    
     public void subirDegats(int damage) {
         currentHp = Math.max(0, currentHp - damage);
     }

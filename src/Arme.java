@@ -9,8 +9,16 @@ public class Arme {
     private int remainingUses;
     private int levelRequired;
     private int price;
+    private EffetBaton effetBaton;
 
-    Arme(String name, CategorieArme categorie, int might, int hit, int crit, int minRange, int maxRange, int remainingUses, int levelRequired, int price) {
+
+    
+    public Arme(String name, CategorieArme categorie, int might, int hit, int crit, int minRange, int maxRange,
+        int remainingUses, int levelRequired, int price) {
+        this(name, categorie, might, hit, crit, minRange, maxRange, remainingUses, levelRequired, price, null);
+    }
+
+    Arme(String name, CategorieArme categorie, int might, int hit, int crit, int minRange, int maxRange, int remainingUses, int levelRequired, int price, EffetBaton effetBaton) {
         this.name = name;
         this.categorie = categorie;
         this.might = might;
@@ -27,6 +35,13 @@ public class Arme {
         }
         this.levelRequired = levelRequired;
         this.price = price;
+        this.effetBaton = effetBaton;
+        if (categorie == CategorieArme.BATON && effetBaton == null) {
+            throw new IllegalArgumentException("Un bâton doit obligatoirement posséder un effet.");
+        }
+        else if (categorie != CategorieArme.BATON && effetBaton != null) {
+            throw new IllegalArgumentException("Seuls les bâtons peuvent posséder cet effet.");
+        }
     }
 
     public String getName() {
@@ -68,11 +83,22 @@ public class Arme {
     public int getPrice() {
         return price;
     }
-
+    
+    public EffetBaton getEffetBaton() {
+        return effetBaton;
+    }
+    
     public String afficherFiche() {
-        return (name + " | " + categorie + " | Puissance : " + might + " | Précision : " + hit +
-        "% | Critique : " + crit + "% | Portée : " + minRange + "-" + maxRange + " | Utilisations : " +
-        remainingUses + " | Niveau requis : " + levelRequired + " | Prix : " + price);
+        if(categorie == CategorieArme.BATON) {
+            return (name + " | " + categorie + " | Puissance : " + might + " | Précision : " + hit +
+            "% | Critique : " + crit + "% | Portée : " + minRange + "-" + maxRange + " | Utilisations : " +
+            remainingUses + " | Niveau requis : " + levelRequired + " | Prix : " + price + "| Effet Bâton : " + effetBaton); 
+        }
+        else {
+            return (name + " | " + categorie + " | Puissance : " + might + " | Précision : " + hit +
+            "% | Critique : " + crit + "% | Portée : " + minRange + "-" + maxRange + " | Utilisations : " +
+            remainingUses + " | Niveau requis : " + levelRequired + " | Prix : " + price);
+        }
     }
 
     public void consommerUtilisation() {
