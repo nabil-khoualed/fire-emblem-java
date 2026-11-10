@@ -106,7 +106,7 @@ public abstract class Unite {
         if(armeEquipee == null) {
             return "Aucune";
         }
-        return armeEquipee.getName();
+        return armeEquipee.getName() + " (" + armeEquipee.getRemainingUses() + " utilisations restantes)";
     }
 
     public String afficherFiche() {

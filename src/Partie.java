@@ -116,8 +116,9 @@ public class Partie {
 
     public boolean attaquer(Unite attaquant, Unite cible) {
         if(peutAttaquer(attaquant, cible)) {
-            cible.subirDegats(attaquant.calculerDegats(cible));
-            System.out.println(attaquant.getName() + " attaque " + cible.getName());
+            int damageAmount = attaquant.calculerDegats(cible);
+            cible.subirDegats(damageAmount);
+            System.out.println(attaquant.getName() + " attaque " + cible.getName() + " avec " + attaquant.getArmeEquipee().getName() + " et lui inflige " + damageAmount + " dégâts.");
             modifierEtat(attaquant, EtatUnite.TERMINEE);
             attaquant.getArmeEquipee().consommerUtilisation();
             return true;
@@ -130,7 +131,7 @@ public class Partie {
         if(peutSoigner(soigneur, cible)) {
             int healAmount = soigneur.calculerSoin(cible);
             cible.recevoirSoin(healAmount);
-            System.out.println(soigneur.getName() + " soigne " + cible.getName() + " de " + healAmount + " points de vie.");
+            System.out.println(soigneur.getName() + " soigne " + cible.getName() + " avec " + soigneur.getArmeEquipee().getName() +" de " + healAmount + " points de vie.");
             modifierEtat(soigneur, EtatUnite.TERMINEE);
             soigneur.getArmeEquipee().consommerUtilisation();
             return true;
