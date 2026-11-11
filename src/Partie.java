@@ -116,9 +116,20 @@ public class Partie {
 
     public boolean attaquer(Unite attaquant, Unite cible) {
         if(peutAttaquer(attaquant, cible)) {
-            int damageAmount = attaquant.calculerDegats(cible);
-            cible.subirDegats(damageAmount);
-            System.out.println(attaquant.getName() + " attaque " + cible.getName() + " avec " + attaquant.getArmeEquipee().getName() + " et lui inflige " + damageAmount + " dégâts.");
+            if(attaquant.tirageReussite(cible)) {
+                int damageAmount = attaquant.calculerDegats(cible);
+                if(attaquant.tirageCritique()) {
+                    damageAmount *= 3;
+                    System.out.println(attaquant.getName() + " réalise un COUP CRITIQUE !");
+                }
+                System.out.print(attaquant.getName() + " attaque " + cible.getName() + " avec " + attaquant.getArmeEquipee().getName()
+                + " : " + damageAmount + " dégâts (" + cible.getCurrentHp() + " -> ");
+                cible.subirDegats(damageAmount);
+                System.out.println(cible.getCurrentHp() + " PV).");
+            }
+            else {
+                System.out.println(attaquant.getName() + " rate " + cible.afficherHp() + ".");
+            }
             modifierEtat(attaquant, EtatUnite.TERMINEE);
             attaquant.getArmeEquipee().consommerUtilisation();
             return true;

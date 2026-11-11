@@ -169,7 +169,7 @@ public abstract class Unite {
     public abstract String typeUnite();
 
     public String afficherHp() {
-        return (name + " : " + currentHp + " / " + maxHp + " PV");
+        return (name + " (" + currentHp + " / " + maxHp + " PV)");
     }
 
     public String afficherInventaire() {
@@ -220,5 +220,13 @@ public abstract class Unite {
     public boolean tirageReussite(Unite cible) {
         int tirage = random.nextInt(100);
         return tirage < probabiliteReussir(cible);
+    }
+
+    public boolean tirageCritique() {
+        if(armeEquipee == null) {
+            return false;
+        }
+        int tirage = random.nextInt(100);
+        return tirage < armeEquipee.getCrit();
     }
 }
