@@ -114,24 +114,31 @@ public class Partie {
         return false;
     }
 
+    public void frapper(Unite attaquant, Unite cible) {
+        if(attaquant.tirageReussite(cible)) {
+            int damageAmount = attaquant.calculerDegats(cible);
+            if(attaquant.tirageCritique()) {
+                damageAmount *= 3;
+                System.out.println(attaquant.getName() + " réalise un COUP CRITIQUE !");
+            }
+            System.out.print(attaquant.getName() + " attaque " + cible.getName() + " avec " + attaquant.getArmeEquipee().getName()
+            + " : " + damageAmount + " dégâts (" + cible.getCurrentHp() + " -> ");
+            cible.subirDegats(damageAmount);
+            System.out.println(cible.getCurrentHp() + " PV).");
+            attaquant.getArmeEquipee().consommerUtilisation();
+        }
+        else {
+            System.out.println(attaquant.getName() + " rate " + cible.afficherHp() + ".");
+            if(attaquant.getArmeEquipee().getCategorie() == CategorieArme.TOME) {
+                attaquant.getArmeEquipee().consommerUtilisation();
+            }
+        }
+    }
+
     public boolean attaquer(Unite attaquant, Unite cible) {
         if(peutAttaquer(attaquant, cible)) {
-            if(attaquant.tirageReussite(cible)) {
-                int damageAmount = attaquant.calculerDegats(cible);
-                if(attaquant.tirageCritique()) {
-                    damageAmount *= 3;
-                    System.out.println(attaquant.getName() + " réalise un COUP CRITIQUE !");
-                }
-                System.out.print(attaquant.getName() + " attaque " + cible.getName() + " avec " + attaquant.getArmeEquipee().getName()
-                + " : " + damageAmount + " dégâts (" + cible.getCurrentHp() + " -> ");
-                cible.subirDegats(damageAmount);
-                System.out.println(cible.getCurrentHp() + " PV).");
-            }
-            else {
-                System.out.println(attaquant.getName() + " rate " + cible.afficherHp() + ".");
-            }
+            frapper(attaquant, cible);
             modifierEtat(attaquant, EtatUnite.TERMINEE);
-            attaquant.getArmeEquipee().consommerUtilisation();
             return true;
         }
         System.out.println(attaquant.getName() + " ne peut pas attaquer " + cible.getName());
