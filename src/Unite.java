@@ -197,4 +197,8 @@ public abstract class Unite {
             return false;
         }
     }
+
+    public int esquive() {
+        return (speed * 2);
+    }
 }

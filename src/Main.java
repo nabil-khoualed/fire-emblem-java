@@ -134,6 +134,10 @@ public class Main {
         System.out.println();
 
         game.afficherTerrain();
+
+        System.out.println("Chrom, vitesse : " + chrom.getSpeed() + " | esquive : " + chrom.esquive());
+        System.out.println("Robin, vitesse : " + robin.getSpeed() + " | esquive : " + robin.esquive());
+        System.out.println("Vaike, vitesse : " + vaike.getSpeed() + " | esquive : " + vaike.esquive());
     }
 }
 
