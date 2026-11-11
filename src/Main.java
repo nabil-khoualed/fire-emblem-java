@@ -61,7 +61,6 @@ public class Main {
         vaike.ajouterObjet(arcLetal);
 
         chrom.equiperArme(epeeFer);
-        frederick.equiperArme(lanceAcier);
         lissa.equiperArme(soin);
         robin.equiperArme(foudre);
         vaike.equiperArme(arcLetal);
@@ -80,6 +79,13 @@ public class Main {
         game.afficherTerrain();
 
         System.out.println("Début de la phase alliée ! ");
+
+        System.out.println(frederick.afficherFiche());
+        if (frederick.getArmeEquipee() != null) {
+            System.out.println(frederick.getArmeEquipee().afficherFiche());
+        }
+        System.out.println("Probabilité que Frederick touche Vaike (esquive : " + vaike.esquive() + " ) : " + frederick.probabiliteReussir(vaike));
+        frederick.equiperArme(lanceAcier);
 
         System.out.println("Chrom tente d'attaquer Vaike à distance : " + game.attaquer(chrom, vaike));
         System.out.println(chrom.afficherFiche() + ", état : " + game.recupererEtat(chrom));
@@ -135,14 +141,12 @@ public class Main {
 
         game.afficherTerrain();
 
-        System.out.println("Chrom, vitesse : " + chrom.getSpeed() + " | esquive : " + chrom.esquive());
-        System.out.println("Robin, vitesse : " + robin.getSpeed() + " | esquive : " + robin.esquive());
-        System.out.println("Vaike, vitesse : " + vaike.getSpeed() + " | esquive : " + vaike.esquive());
+        System.out.println(chrom.afficherFiche());
+        System.out.println(chrom.getArmeEquipee().afficherFiche());
+        System.out.println("Probabilité que Chrom touche Vaike (esquive : " + vaike.esquive() + " ) : " + chrom.probabiliteReussir(vaike));
+
+        System.out.println(vaike.afficherFiche());
+        System.out.println(vaike.getArmeEquipee().afficherFiche());
+        System.out.println("Probabilité que Vaike touche Robin (esquive : " + robin.esquive() + " ) : " + vaike.probabiliteReussir(robin));
     }
 }
-
-/* 
-Actuellement, le système ne prend pas en compte la précision des armes, ni leur taux de critique. 
-La vitesse des personnages n'influe aucune méthode actuelle.
-Il n'y a pas encore d'obstacles sur la carte, les unités mortes restent sur le terrain, et constitue des obstacles. Aucune condition de fin de partie n'existe.
-*/

@@ -108,7 +108,6 @@ public class Arme {
     }
 }
 
-
 /* 
 • Créer une classe représentant une arme avec : nom, catégorie, puissance, portée minimale, portée
 maximale, utilisations restantes et niveau minimal requis.

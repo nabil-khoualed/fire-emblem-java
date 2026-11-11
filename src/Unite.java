@@ -201,4 +201,12 @@ public abstract class Unite {
     public int esquive() {
         return (speed * 2);
     }
+
+    public int probabiliteReussir(Unite cible) {
+        if (armeEquipee == null) {
+            return 0;
+        }
+        int probabilite = Math.max(0, armeEquipee.getHit() - cible.esquive());
+        return Math.min(100, probabilite);
+    }
 }
