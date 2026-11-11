@@ -143,9 +143,15 @@ public class Partie {
     public boolean attaquer(Unite attaquant, Unite cible) {
         if(peutAttaquer(attaquant, cible)) {
             frapper(attaquant, cible);
+            if(peutRiposter(attaquant, cible)) {
+                frapper(cible, attaquant);
+            }
             modifierEtat(attaquant, EtatUnite.TERMINEE);
             if(attaquant.getArmeEquipee().getRemainingUses() == 0) {
                 attaquant.equiperArmeSuivante();
+            }
+            if(cible.getArmeEquipee() != null && cible.getArmeEquipee().getRemainingUses() == 0) {
+                cible.equiperArmeSuivante();
             }
             return true;
         }

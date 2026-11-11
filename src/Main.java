@@ -45,11 +45,14 @@ public class Main {
         Arme feu = new Arme("Feu", CategorieArme.TOME, 2, 90,
         0, 1, 2, 1, 15, 540); 
 
-        Arme foudre = new Arme("Foudre", CategorieArme.TOME, 3, 80,
+        Arme foudre = new Arme("Foudre", CategorieArme.TOME, 3, 10,
         25, 1, 2, 2, 1, 630); 
 
         Arme arcLetal = new Arme("Arc Létal", CategorieArme.ARC, 4, 80,
         10, 2, 2, 1, 10, 1680);
+
+        Arme arcAcier = new Arme("Arc Acier", CategorieArme.ARC, 3, 85,
+        5, 2, 2, 10, 3, 1680);
 
         chrom.ajouterObjet(epeeBronze);
         chrom.ajouterObjet(epeeFer);
@@ -60,6 +63,7 @@ public class Main {
         robin.ajouterObjet(feu);
         robin.ajouterObjet(foudre);
         vaike.ajouterObjet(arcLetal);
+        vaike.ajouterObjet(arcAcier);
 
         chrom.equiperArme(epeeBronze);
         frederick.equiperArme(lanceAcier);
