@@ -139,6 +139,9 @@ public class Partie {
         if(peutAttaquer(attaquant, cible)) {
             frapper(attaquant, cible);
             modifierEtat(attaquant, EtatUnite.TERMINEE);
+            if(attaquant.getArmeEquipee().getRemainingUses() == 0) {
+                attaquant.equiperArmeSuivante();
+            }
             return true;
         }
         System.out.println(attaquant.getName() + " ne peut pas attaquer " + cible.getName());
@@ -152,6 +155,9 @@ public class Partie {
             System.out.println(soigneur.getName() + " soigne " + cible.getName() + " avec " + soigneur.getArmeEquipee().getName() +" de " + healAmount + " points de vie.");
             modifierEtat(soigneur, EtatUnite.TERMINEE);
             soigneur.getArmeEquipee().consommerUtilisation();
+            if(soigneur.getArmeEquipee().getRemainingUses() == 0) {
+                soigneur.equiperArmeSuivante();
+            }
             return true;
         }
         System.out.println(soigneur.getName() + " ne peut pas soigner " + cible.getName());

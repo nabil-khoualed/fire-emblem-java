@@ -229,4 +229,14 @@ public abstract class Unite {
         int tirage = random.nextInt(100);
         return tirage < armeEquipee.getCrit();
     }
+
+    public void equiperArmeSuivante() {
+        for(Arme arme : inventory) {
+            if(peutEquiper(arme) && arme.getRemainingUses() >0) {
+                armeEquipee = arme;
+                return;
+            }
+        }
+        armeEquipee = null;
+    }
 }
