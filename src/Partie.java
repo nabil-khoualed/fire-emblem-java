@@ -82,19 +82,24 @@ public class Partie {
 
     public boolean peutAttaquer(Unite attaquant, Unite cible) {
         Arme arme = attaquant.getArmeEquipee();
-        int distance = distanceEntreUnites(attaquant, cible);
         if(peutAgir(attaquant) &&
         arme != null &&
         arme.getCategorie() != CategorieArme.BATON &&
         arme.getRemainingUses() > 0 &&
         cible.getCurrentHp() > 0 &&
-        distance >= arme.getMinRange() &&
-        distance <= arme.getMaxRange() &&
+        aPorteeDeCoup(attaquant, cible) &&
         equipeOpposee(attaquant, cible)){
             return true;
         }
         return false;
     }
+
+    public boolean aPorteeDeCoup(Unite attaquant, Unite cible) {
+        int distance = distanceEntreUnites(attaquant, cible);
+        Arme arme = attaquant.getArmeEquipee();
+        return (distance >= arme.getMinRange() && distance <= arme.getMaxRange());
+    }
+
 
     public boolean peutSoigner(Unite soigneur, Unite cible) {
         Arme arme = soigneur.getArmeEquipee();
@@ -148,6 +153,16 @@ public class Partie {
         return false;
     }
 
+    public boolean peutRiposter(Unite attaquant, Unite defenseur) {
+        return (defenseur.getCurrentHp() > 0 &&
+        defenseur.getArmeEquipee() != null &&
+        defenseur.getArmeEquipee().getCategorie() != CategorieArme.BATON &&
+        defenseur.getArmeEquipee().getRemainingUses() > 0 &&
+        equipeOpposee(attaquant, defenseur) &&
+        attaquant.getCurrentHp() > 0 &&
+        aPorteeDeCoup(defenseur, attaquant));
+    }
+
     public boolean soigner(Unite soigneur, Unite cible) {
         if(peutSoigner(soigneur, cible)) {
             int healAmount = soigneur.calculerSoin(cible);
@@ -171,6 +186,12 @@ public class Partie {
             }
         }
         return true;
+    }
+
+    public void finirPhaseEquipe(List<Unite> equipe) {
+        for (Unite unite : equipe) {
+            modifierEtat(unite, EtatUnite.TERMINEE);
+        }
     }
 
     public void reinitialiserEtat(List<Unite> equipe) {

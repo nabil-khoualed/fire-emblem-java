@@ -25,7 +25,7 @@ public class Main {
         Partie game = new Partie(allies, ennemies, 5, 7);
 
         Arme epeeBronze = new Arme("Epee Bronze", CategorieArme.EPEE, 3, 100,
-        100, 1, 1, 1, 1, 350);
+        0, 1, 1, 1, 1, 350);
 
         Arme lanceAcier = new Arme("Lance Acier", CategorieArme.LANCE, 9, 80,
         0, 1, 1, 1, 5, 910);
@@ -43,12 +43,13 @@ public class Main {
         0, 1, 1, 30, 3, 520);
 
         Arme feu = new Arme("Feu", CategorieArme.TOME, 2, 90,
-        0, 1, 2, 45, 15, 540); 
+        0, 1, 2, 1, 15, 540); 
 
         Arme foudre = new Arme("Foudre", CategorieArme.TOME, 3, 80,
-        25, 1, 2, 1, 1, 630); 
+        25, 1, 2, 2, 1, 630); 
 
-        Arme arcLetal = new Arme("Arc Létal", CategorieArme.ARC, 4, 80, 50, 2, 2, 30, 10, 1680);
+        Arme arcLetal = new Arme("Arc Létal", CategorieArme.ARC, 4, 80,
+        10, 2, 2, 1, 10, 1680);
 
         chrom.ajouterObjet(epeeBronze);
         chrom.ajouterObjet(epeeFer);
@@ -84,6 +85,7 @@ public class Main {
         System.out.println("Chrom tente d'attaquer Vaike à distance : " + game.attaquer(chrom, vaike));
         game.deplacerUnite(chrom, 3, 2);
         game.attaquer(chrom, vaike);
+        System.out.println("Vaike peut riposter à distance 1 : " + game.peutRiposter(chrom, vaike));
         System.out.println(chrom.afficherFiche() + ", état : " + game.recupererEtat(chrom));
         System.out.println();
 
@@ -100,12 +102,15 @@ public class Main {
 
         game.deplacerUnite(robin, 3, 5);
         game.attaquer(robin, vaike);
+        System.out.println("Vaike peut riposter à distance 2 : " + game.peutRiposter(robin, vaike));
         System.out.println(robin.afficherFiche() + ", état : " + game.recupererEtat(robin));
         System.out.println();
 
         System.out.println("Phase alliée terminée : " + game.phaseTerminee(allies));
         System.out.println("Début de la phase ennemie ! ");
         game.attaquer(vaike, robin);
+        System.out.println(robin.afficherFiche());
+        System.out.println("Défenseur déjà terminée mais armé et à portée : " + game.peutRiposter(vaike, robin));
         System.out.println();
 
         System.out.println("Phase ennemie terminée : " + game.phaseTerminee(ennemies));
@@ -125,5 +130,13 @@ public class Main {
         System.out.println();
 
         game.afficherTerrain();
+        System.out.println("Début de la phase alliée ! ");
+        game.attaquer(robin, vaike);
+        System.out.println("Défenseur désarmé : " + game.peutRiposter(robin, vaike));
+        System.out.println(robin.afficherFiche() + ", état : " + game.recupererEtat(robin));
+        System.out.println();
+
+        game.finirPhaseEquipe(allies);
+        System.out.println("Début de la phase ennemie ! ");
     }
 }
