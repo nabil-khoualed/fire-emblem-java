@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Random;
 
 public abstract class Unite {
     private String name;
@@ -17,6 +18,8 @@ public abstract class Unite {
     private int level = 1;
     private List<Arme> inventory = new ArrayList<>(5);
     private Arme armeEquipee;
+    private Random random = new Random();
+
 
     public boolean ajouterObjet(Arme arme) {
         if(inventory.size() <5) {
@@ -100,6 +103,10 @@ public abstract class Unite {
 
     public int getCol() {
         return col;
+    }
+
+    public Random getRandom() {
+        return random;
     }
 
     public String afficherArmeEquipee() {
@@ -208,5 +215,10 @@ public abstract class Unite {
         }
         int probabilite = Math.max(0, armeEquipee.getHit() - cible.esquive());
         return Math.min(100, probabilite);
+    }
+
+    public boolean tirageReussite(Unite cible) {
+        int tirage = random.nextInt(100);
+        return tirage < probabiliteReussir(cible);
     }
 }

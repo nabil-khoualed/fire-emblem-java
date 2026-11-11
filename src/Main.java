@@ -7,7 +7,7 @@ public class Main {
         5, 3, 8, 5, 1, 1, 3);
 
         Cavalier frederick = new Cavalier("Frederick", 5, 35, 10, 0,
-        6, 4, 6, 7, 1, 3, 5);
+        6, 4, 50, 7, 1, 3, 5);
 
         Mage robin = new Mage("Robin", 15, 15, 3, 9,
         3, 7, 7, 5, 0, 5);
@@ -18,7 +18,7 @@ public class Main {
         ArrayList<Unite> allies = new ArrayList<>(List.of(chrom, frederick, robin, lissa));
 
         Archer vaike = new Archer("Vaike", 45, 45, 9, 2,
-        4, 5, 7, 5, 3, 3, 10);
+        4, 5, 0, 5, 3, 3, 10);
 
         ArrayList<Unite> ennemies = new ArrayList<>(List.of(vaike));
 
@@ -60,7 +60,7 @@ public class Main {
         robin.ajouterObjet(foudre);
         vaike.ajouterObjet(arcLetal);
 
-        chrom.equiperArme(epeeFer);
+        chrom.equiperArme(epeeBronze);
         lissa.equiperArme(soin);
         robin.equiperArme(foudre);
         vaike.equiperArme(arcLetal);
@@ -148,5 +148,45 @@ public class Main {
         System.out.println(vaike.afficherFiche());
         System.out.println(vaike.getArmeEquipee().afficherFiche());
         System.out.println("Probabilité que Vaike touche Robin (esquive : " + robin.esquive() + " ) : " + vaike.probabiliteReussir(robin));
+        
+        int nombreDeTirReussi = 0;
+        int nombreDeTirRate = 0;
+        for(int i = 0; i <= 99; i++) {
+            if(vaike.tirageReussite(robin)) {
+                nombreDeTirReussi++;
+            }
+            else {
+                nombreDeTirRate++;
+            }
+        }
+        System.out.println("Nombre de fois où Vaike a touché Robin : " + nombreDeTirReussi);
+        System.out.println("Nombre de fois où Vaike a raté Robin : " + nombreDeTirRate);
+
+        int nombreDeTirReussiTest100 = 0;
+        int nombreDeTirRatetTest100 = 0;
+        for(int i = 0; i <= 99; i++) {
+            if(chrom.tirageReussite(vaike)) {
+                nombreDeTirReussiTest100++;
+            }
+            else {
+                nombreDeTirRatetTest100++;
+            }
+        }
+        System.out.println("Nombre de fois où Chrom a touché Vaike : " + nombreDeTirReussiTest100);
+        System.out.println("Nombre de fois où Chrom a raté Vaike : " + nombreDeTirRatetTest100);
+
+
+        int nombreDeTirReussiTest0 = 0;
+        int nombreDeTirRatetTest0 = 0;
+        for(int i = 0; i <= 99; i++) {
+            if(vaike.tirageReussite(frederick)) {
+                nombreDeTirReussiTest0++;
+            }
+            else {
+                nombreDeTirRatetTest0++;
+            }
+        }
+        System.out.println("Nombre de fois où Vaike a touché Frédérick : " + nombreDeTirReussiTest0);
+        System.out.println("Nombre de fois où Vaike a raté Frédérick : " + nombreDeTirRatetTest0);
     }
 }
