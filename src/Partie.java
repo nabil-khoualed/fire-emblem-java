@@ -8,6 +8,7 @@ public class Partie {
     private Map<Unite, EtatUnite> etats;
     private int rowCount;
     private int columnCount;
+    private boolean[][] casesInfranchissables;
 
     Partie(List<Unite> allies, List<Unite> ennemies) {
         this(allies, ennemies, 5, 7);
@@ -25,6 +26,7 @@ public class Partie {
         }
         this.rowCount = rowCount;
         this.columnCount = columnCount;
+        this.casesInfranchissables = new boolean[rowCount][columnCount];
     }
     
 
@@ -54,6 +56,10 @@ public class Partie {
 
     public Map<Unite, EtatUnite> getEtats() {
         return etats;
+    }
+
+    public boolean[][] getCasesInfranchissables() {
+        return casesInfranchissables;
     }
 
     public boolean peutAgir(Unite unite) {
@@ -293,6 +299,9 @@ public class Partie {
                 else if(caseOccupiedByEnemy(row, col)) {
                     System.out.print("E");
                 }
+                else if(casesInfranchissables[row][col]) {
+                    System.out.print("#");
+                }
                 else{
                     System.out.print(".");
                 }
@@ -315,5 +324,22 @@ public class Partie {
             System.out.println(unite.afficherFiche());
         }
     }
+    public boolean placerObstacle(int row, int column) {
+        if(caseExist(row, column) && !caseOccupied(row, column)) {
+            casesInfranchissables[row][column] = true;
+            return true;
+        }
+        return false;
+    }
+    public boolean retirerObstacle(int row, int column) {
+        if(caseExist(row, column)) {
+            casesInfranchissables[row][column] = false;
+            return true;
+        }
+        return false;
+    }
 
+    public boolean caseBloquee(int row, int column) {
+        return caseExist(row, column) && casesInfranchissables[row][column];
+    }
 }

@@ -24,6 +24,16 @@ public class Main {
 
         Partie game = new Partie(allies, ennemies, 5, 7);
 
+        System.out.println("Obstacle en [2, 2] : " + game.placerObstacle(2, 2));
+        System.out.println("Obstacle en [2, 3] : " + game.placerObstacle(2, 3));
+        System.out.println("Obstacle en [8, 8] : " + game.placerObstacle(8, 8));
+        System.out.println("Case bloquée en [2, 2] : " + game.caseBloquee(2, 2));
+        System.out.println("Retirer obstacle en [2, 2] : " + game.retirerObstacle(2, 2));
+        System.out.println("Case bloquée en [2, 2] : " + game.caseBloquee(2, 2)); 
+        System.out.println("Placer obstacle sur une case occupée par une unité : " + game.placerObstacle(1, 1));
+        game.afficherTerrain();
+
+
         Arme epeeBronze = new Arme("Epee Bronze", CategorieArme.EPEE, 3, 100,
         0, 1, 1, 10, 1, 350);
 
