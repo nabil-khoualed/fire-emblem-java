@@ -4,7 +4,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         Epeiste chrom = new Epeiste("Chrom", 24, 24, 8, 2,
-        5, 3, 8, 5, 1, 1, 3);
+        5, 3, 15, 5, 1, 1, 3);
 
         Cavalier frederick = new Cavalier("Frederick", 5, 35, 7, 0,
         6, 4, 6, 7, 1, 3, 5);
@@ -18,7 +18,7 @@ public class Main {
         ArrayList<Unite> allies = new ArrayList<>(List.of(chrom, frederick, robin, lissa));
 
         Archer vaike = new Archer("Vaike", 45, 45, 9, 2,
-        6, 7, 1, 5, 3, 3, 10);
+        6, 7, 9, 5, 3, 3, 10);
 
         ArrayList<Unite> ennemies = new ArrayList<>(List.of(vaike));
 
@@ -45,11 +45,11 @@ public class Main {
         Arme feu = new Arme("Feu", CategorieArme.TOME, 2, 90,
         0, 1, 2, 1, 15, 540); 
 
-        Arme foudre = new Arme("Foudre", CategorieArme.TOME, 3, 10,
-        25, 1, 2, 2, 1, 630); 
+        Arme foudre = new Arme("Foudre", CategorieArme.TOME, 3, 90,
+        25, 1, 2, 5, 1, 630); 
 
         Arme arcLetal = new Arme("Arc Létal", CategorieArme.ARC, 4, 80,
-        10, 2, 2, 1, 10, 1680);
+        10, 2, 2, 5, 10, 1680);
 
         Arme arcAcier = new Arme("Arc Acier", CategorieArme.ARC, 3, 85,
         5, 2, 2, 10, 3, 1680);

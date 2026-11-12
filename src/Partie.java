@@ -141,18 +141,28 @@ public class Partie {
     }
 
     public boolean attaquer(Unite attaquant, Unite cible) {
+        Arme armeAttaquant = attaquant.getArmeEquipee();
+        Arme armeCible = cible.getArmeEquipee();
         if(peutAttaquer(attaquant, cible)) {
             frapper(attaquant, cible);
             if(peutRiposter(attaquant, cible)) {
                 frapper(cible, attaquant);
             }
-            modifierEtat(attaquant, EtatUnite.TERMINEE);
-            if(attaquant.getArmeEquipee().getRemainingUses() == 0) {
+            if(attaquant.peutDoubler(cible) && attaquant.getCurrentHp() > 0 && cible.getCurrentHp() > 0 &&
+            armeAttaquant != null && armeAttaquant.getRemainingUses() > 0) {
+                frapper(attaquant, cible);
+            }
+            if(cible.peutDoubler(attaquant) && cible.getCurrentHp() > 0 && attaquant.getCurrentHp() > 0 &&
+            armeCible != null && armeCible.getRemainingUses() > 0 && armeCible.getCategorie() != CategorieArme.BATON && aPorteeDeCoup(cible, attaquant)) {
+                frapper(cible, attaquant);
+            }
+            if(armeAttaquant.getRemainingUses() == 0) {
                 attaquant.equiperArmeSuivante();
             }
-            if(cible.getArmeEquipee() != null && cible.getArmeEquipee().getRemainingUses() == 0) {
+            if(armeCible != null && armeCible.getRemainingUses() == 0) {
                 cible.equiperArmeSuivante();
             }
+            modifierEtat(attaquant, EtatUnite.TERMINEE);
             return true;
         }
         System.out.println(attaquant.getName() + " ne peut pas attaquer " + cible.getName());

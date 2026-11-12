@@ -239,4 +239,8 @@ public abstract class Unite {
         }
         armeEquipee = null;
     }
+
+    public boolean peutDoubler(Unite adversaire) {
+        return speed - adversaire.getSpeed() >= 5;
+    }
 }
