@@ -9,8 +9,8 @@ public class Main {
         Cavalier frederick = new Cavalier("Frederick", 5, 35, 7, 0,
         6, 4, 6, 7, 1, 3, 5);
 
-        Mage robin = new Mage("Robin", 22, 22, 3, 9,
-        3, 7, 7, 5, 0, 5);
+        Mage robin = new Mage("Robin", 30, 30, 3, 9,
+        3, 7, 4, 5, 0, 5);
 
         Clerc lissa = new Clerc("Lissa", 18, 18, 0, 7,
         2, 8, 7, 5, 0, 1, 9);
@@ -25,10 +25,10 @@ public class Main {
         Partie game = new Partie(allies, ennemies, 5, 7);
 
         Arme epeeBronze = new Arme("Epee Bronze", CategorieArme.EPEE, 3, 100,
-        0, 1, 1, 1, 1, 350);
+        0, 1, 1, 10, 1, 350);
 
-        Arme lanceAcier = new Arme("Lance Acier", CategorieArme.LANCE, 9, 80,
-        0, 1, 1, 1, 5, 910);
+        Arme lanceAcier = new Arme("Lance Acier", CategorieArme.LANCE, 4, 80,
+        90, 1, 1, 1, 5, 910);
 
         Arme soin = new Arme("Soin", CategorieArme.BATON, 8, 100,
         0, 1, 1, 1, 1, 600, EffetBaton.SOIN);
@@ -45,11 +45,11 @@ public class Main {
         Arme feu = new Arme("Feu", CategorieArme.TOME, 2, 90,
         0, 1, 2, 1, 15, 540); 
 
-        Arme foudre = new Arme("Foudre", CategorieArme.TOME, 3, 90,
+        Arme foudre = new Arme("Foudre", CategorieArme.TOME, 3, 10,
         25, 1, 2, 5, 1, 630); 
 
         Arme arcLetal = new Arme("Arc Létal", CategorieArme.ARC, 4, 80,
-        10, 2, 2, 5, 10, 1680);
+        30, 2, 2, 5, 10, 1680);
 
         Arme arcAcier = new Arme("Arc Acier", CategorieArme.ARC, 3, 85,
         5, 2, 2, 10, 3, 1680);
@@ -85,12 +85,11 @@ public class Main {
         game.afficherTerrain();
 
         System.out.println("Début de la phase alliée ! ");
-
-        System.out.println("Chrom tente d'attaquer Vaike à distance : " + game.attaquer(chrom, vaike));
+        System.out.println(chrom.afficherFiche() + ", état : " + game.recupererEtat(chrom));
         game.deplacerUnite(chrom, 3, 2);
         game.attaquer(chrom, vaike);
-        System.out.println("Vaike peut riposter à distance 1 : " + game.peutRiposter(chrom, vaike));
         System.out.println(chrom.afficherFiche() + ", état : " + game.recupererEtat(chrom));
+        System.out.println(vaike.afficherFiche() + ", état : " + game.recupererEtat(vaike));
         System.out.println();
 
         game.deplacerUnite(lissa, 0, 3);
@@ -102,19 +101,26 @@ public class Main {
         game.deplacerUnite(frederick, 4, 3);
         game.attaquer(frederick, vaike);
         System.out.println(frederick.afficherFiche() + ", état : " + game.recupererEtat(frederick));
+        System.out.println(vaike.afficherFiche() + ", état : " + game.recupererEtat(vaike));
         System.out.println();
 
         game.deplacerUnite(robin, 3, 5);
         game.attaquer(robin, vaike);
-        System.out.println("Vaike peut riposter à distance 2 : " + game.peutRiposter(robin, vaike));
         System.out.println(robin.afficherFiche() + ", état : " + game.recupererEtat(robin));
+        System.out.println(vaike.afficherFiche() + ", état : " + game.recupererEtat(vaike));
         System.out.println();
 
         System.out.println("Phase alliée terminée : " + game.phaseTerminee(allies));
         System.out.println("Début de la phase ennemie ! ");
-        game.attaquer(vaike, robin);
-        System.out.println(robin.afficherFiche());
-        System.out.println("Défenseur déjà terminée mais armé et à portée : " + game.peutRiposter(vaike, robin));
+
+        if(game.attaquer(vaike, robin)) {
+            System.out.println(robin.afficherFiche() + ", état : " + game.recupererEtat(robin));
+            System.out.println(vaike.afficherFiche() + ", état : " + game.recupererEtat(vaike));
+        }
+        else {
+            game.attendre(vaike);
+        }
+
         System.out.println();
 
         System.out.println("Phase ennemie terminée : " + game.phaseTerminee(ennemies));
@@ -136,8 +142,8 @@ public class Main {
         game.afficherTerrain();
         System.out.println("Début de la phase alliée ! ");
         game.attaquer(robin, vaike);
-        System.out.println("Défenseur désarmé : " + game.peutRiposter(robin, vaike));
         System.out.println(robin.afficherFiche() + ", état : " + game.recupererEtat(robin));
+        System.out.println(vaike.afficherFiche() + ", état : " + game.recupererEtat(vaike));
         System.out.println();
 
         game.finirPhaseEquipe(allies);
