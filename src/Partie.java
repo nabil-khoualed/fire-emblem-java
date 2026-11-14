@@ -1,6 +1,10 @@
 import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Queue;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Partie {
     private List<Unite> allies;
@@ -230,37 +234,50 @@ public class Partie {
     }
 
     public boolean caseOccupied(int row, int col) {
-        for(Unite unite : allies) {
-            if(row == unite.getRow() && col == unite.getCol()) {
-                return true;
-            }
-        }
-        for(Unite unite : ennemies) {
-            if(row == unite.getRow() && col == unite.getCol()) {
-                return true;
-            }
-        }
-        return false;
+        return caseOccupiedByAlly(row, col) || caseOccupiedByEnemy(row, col);
     }
 
     public boolean caseOccupiedByAlly(int row, int col) {
         for(Unite unite : allies) {
-            if(row == unite.getRow() && col == unite.getCol()) {
+            if(row == unite.getRow() && col == unite.getCol() && unite.getCurrentHp() > 0) {
                 return true;
             }
         }
         return false;
     }
 
-        public boolean caseOccupiedByEnemy(int row, int col) {
+    public boolean caseOccupiedByEnemy(int row, int col) {
+        for(Unite unite : ennemies) {
+            if(row == unite.getRow() && col == unite.getCol() && unite.getCurrentHp() > 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Unite getUniteAt(int row, int col) {
+        for(Unite unite : allies) {
+            if(row == unite.getRow() && col == unite.getCol()) {
+                if(unite.getCurrentHp() > 0) {
+                    return unite;
+                }
+            }
+        }
         for(Unite unite : ennemies) {
             if(row == unite.getRow() && col == unite.getCol()) {
-                return true;
+                if(unite.getCurrentHp() > 0) {
+                    return unite;
+                }
             }
         }
-        return false;
+        return null;
     }
 
+    public boolean caseOccupiedByOppositeTeam(Unite unite, int row, int col) {
+        Unite unitePresente = getUniteAt(row, col);
+        return unitePresente != null && equipeOpposee(unite, unitePresente);
+    }
+    
     public int caseDistance(int row1, int col1, int row2, int col2) {
         int rowDistance = Math.abs(row1 - row2);
         int colDistance = Math.abs(col1 - col2);
@@ -341,5 +358,54 @@ public class Partie {
 
     public boolean caseBloquee(int row, int column) {
         return caseExist(row, column) && casesInfranchissables[row][column];
+    }
+
+    public List<Position> calculerCasesAccessibles(Unite unite) {
+        Queue<Position> file = new ArrayDeque<>();
+        List<Position> positionsAcessibles = new ArrayList<>();
+        int[][] distances = new int [rowCount][columnCount];
+        for(int i = 0 ; i < rowCount ; i++) {
+            Arrays.fill(distances[i], -1);
+        }
+        int rowUnite = unite.getRow();
+        int colUnite = unite.getCol();
+        distances[rowUnite][colUnite] = 0;
+        file.add(new Position(rowUnite, colUnite));
+
+        while(!file.isEmpty()) {
+            Position temp = file.poll();
+            int rowTemp = temp.row();
+            int colTemp = temp.col();
+            int distanceTemp = distances[rowTemp][colTemp];
+            if (distanceTemp >= unite.getMovement()) {
+                continue;
+            }
+            int[][] voisins = {
+                {rowTemp-1, colTemp},
+                {rowTemp+1, colTemp},
+                {rowTemp, colTemp-1},
+                {rowTemp, colTemp+1}
+            };
+            for(int i = 0 ; i < voisins.length ; i++) {
+                int rowVoisin = voisins[i][0];
+                int colVoisin = voisins[i][1];
+                if(caseExist(rowVoisin, colVoisin) &&
+                !casesInfranchissables[rowVoisin][colVoisin] &&
+                !caseOccupiedByOppositeTeam(unite, rowVoisin, colVoisin) &&
+                distances[rowVoisin][colVoisin] == -1)
+                {
+                    distances[rowVoisin][colVoisin] = distanceTemp + 1;
+                    file.add(new Position(rowVoisin, colVoisin));
+                }
+            }
+        }
+        for(int row = 0 ; row < distances.length ; row++) {
+            for(int col = 0 ; col < distances[0].length ; col++) {
+                if(distances[row][col] > 0 && !caseOccupied(row, col)) {
+                    positionsAcessibles.add(new Position(row, col));
+                }
+            }
+        }
+        return positionsAcessibles;
     }
 }
