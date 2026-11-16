@@ -297,8 +297,8 @@ public class Partie {
             System.out.println(unite.getName() + " ne peut pas se déplacer en [" + row + ", " + col + "].");
             return false;
         }
-        else if(caseDistance(unite.getRow(), unite.getCol(), row, col) >unite.getMovement()) {
-            System.out.println(unite.getName() + " ne peut pas se déplacer aussi loin jusqu'en [" + row + ", " + col + "].");
+        else if(!calculerCasesAccessibles(unite).contains(new Position(row, col))) {
+            System.out.println("Déplacement impossible");
             return false;
         }
         unite.deplacerVers(row, col);
