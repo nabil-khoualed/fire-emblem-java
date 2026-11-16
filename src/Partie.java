@@ -327,6 +327,31 @@ public class Partie {
         }
     }
 
+    public void afficherCasesAccessibles(Unite unite) {
+        List<Position> positionsAccessibles = calculerCasesAccessibles(unite);
+        for(int row = 0 ; row < rowCount ; row ++) {
+            for(int col = 0 ; col < columnCount ; col++) {
+                if(caseOccupiedByAlly(row, col)) {
+                    System.out.print("A");
+                }
+                else if(caseOccupiedByEnemy(row, col)) {
+                    System.out.print("E");
+                }
+                else if(casesInfranchissables[row][col]) {
+                    System.out.print("#");
+                }
+                else if(positionsAccessibles.contains(new Position(row, col))) {
+                    System.out.print("o");
+                }
+                else{
+                    System.out.print(".");
+                }
+            }            
+            System.out.println();
+        }
+    }
+
+
     public void afficherUnite(Unite unite) {
         System.out.println(unite.afficherFiche() + ", peut agir : " + peutAgir(unite) + " - " + recupererEtat(unite));
     }
