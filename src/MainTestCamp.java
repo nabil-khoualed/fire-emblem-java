@@ -40,25 +40,24 @@ public class MainTestCamp {
         vaike.equiperArme(arcAcier); */
 
         game.afficherTerrain();
-        System.out.println("Camp actif : " + game.getCampActif());
-        System.out.println(chrom.afficherFiche() + ", état : " + game.recupererEtat(chrom));
-        System.out.println(frederick.afficherFiche() + ", état : " + game.recupererEtat(frederick));
 
+        System.out.println("Tour " + game.getNumeroTour() + " - " + game.getCampActif());
         System.out.println("Chrom attend. " + game.attendre(chrom));
-        System.out.println("J'appelle phaseTerminee(allies) : " + game.phaseTerminee(allies));
         System.out.println("J'appelle terminerPhaseCourante : " + game.terminerPhaseCourante());
 
-        System.out.println("Camp actif : " + game.getCampActif());
-        System.out.println(chrom.afficherFiche() + ", état : " + game.recupererEtat(chrom));
-        System.out.println(frederick.afficherFiche() + ", état : " + game.recupererEtat(frederick));
-        System.out.println(vaike.afficherFiche() + ", état : " + game.recupererEtat(vaike));
-
+        System.out.println("Tour " + game.getNumeroTour() + " - " + game.getCampActif());
         System.out.println("Vaike attend. " + game.attendre(vaike));
         System.out.println("J'appelle terminerPhaseCourante : " + game.terminerPhaseCourante());
 
-        System.out.println("Camp actif : " + game.getCampActif());
-        System.out.println(chrom.afficherFiche() + ", état : " + game.recupererEtat(chrom));
-        System.out.println(frederick.afficherFiche() + ", état : " + game.recupererEtat(frederick));
-        System.out.println(vaike.afficherFiche() + ", état : " + game.recupererEtat(vaike));
+        System.out.println("Tour " + game.getNumeroTour() + " - " + game.getCampActif());
+        System.out.println("J'appelle finirPhaseEquipe.");
+        game.finirPhaseEquipe();
+
+        System.out.println("Tour " + game.getNumeroTour() + " - " + game.getCampActif());
+        System.out.println("J'appelle finirPhaseEquipe.");
+        game.finirPhaseEquipe();
+
+        System.out.println("Tour " + game.getNumeroTour() + " - " + game.getCampActif());
+
     }
 }

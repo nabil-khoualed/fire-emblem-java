@@ -14,6 +14,7 @@ public class Partie {
     private int columnCount;
     private boolean[][] casesInfranchissables;
     private Camp campActif;
+    private int numeroTour;
 
     Partie(List<Unite> allies, List<Unite> ennemies) {
         this(allies, ennemies, 5, 7);
@@ -33,6 +34,7 @@ public class Partie {
         this.columnCount = columnCount;
         this.casesInfranchissables = new boolean[rowCount][columnCount];
         this.campActif = Camp.ALLIES;
+        this.numeroTour = 1;
     }
     
 
@@ -70,6 +72,12 @@ public class Partie {
 
     public Camp getCampActif() {
         return campActif;
+    }
+
+    
+
+    public int getNumeroTour() {
+        return numeroTour;
     }
 
     public boolean peutAgir(Unite unite) {
@@ -231,6 +239,7 @@ public class Partie {
         }
         if (campActif == Camp.ENNEMIS && phaseTerminee(ennemies)) {
             campActif = Camp.ALLIES;
+            numeroTour++;
             reinitialiserEtat(allies);
             return true;
         }
