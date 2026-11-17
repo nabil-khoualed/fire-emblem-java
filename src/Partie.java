@@ -73,7 +73,10 @@ public class Partie {
     }
 
     public boolean peutAgir(Unite unite) {
-        return unite.getCurrentHp() > 0 && etats.get(unite) != EtatUnite.TERMINEE;
+        return unite.getCurrentHp() > 0 &&
+        etats.get(unite) != EtatUnite.TERMINEE &&
+        ((allies.contains(unite) && campActif == Camp.ALLIES) 
+        || (ennemies.contains(unite) && campActif == Camp.ENNEMIS));
     }
 
     public boolean peutSeDeplacer(Unite unite) {
