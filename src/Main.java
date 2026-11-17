@@ -38,7 +38,7 @@ public class Main {
         0, 1, 1, 10, 1, 350);
 
         Arme lanceAcier = new Arme("Lance Acier", CategorieArme.LANCE, 4, 80,
-        90, 1, 1, 1, 5, 910);
+        90, 1, 1, 20, 5, 910);
 
         Arme soin = new Arme("Soin", CategorieArme.BATON, 8, 100,
         0, 1, 1, 1, 1, 600, EffetBaton.SOIN);
@@ -156,7 +156,7 @@ public class Main {
         System.out.println(vaike.afficherFiche() + ", état : " + game.recupererEtat(vaike));
         System.out.println();
 
-        game.finirPhaseEquipe(allies);
+        game.finirPhaseEquipe();
         System.out.println("Début de la phase ennemie ! ");
     }
 }

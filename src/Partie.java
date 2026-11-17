@@ -216,17 +216,43 @@ public class Partie {
 
     public boolean phaseTerminee(List<Unite> equipe) {
         for (Unite unite : equipe) {
-            if(etats.get(unite) != EtatUnite.TERMINEE) {
+            if(unite.getCurrentHp() > 0 && etats.get(unite) != EtatUnite.TERMINEE) {
                 return false;
             }
         }
         return true;
     }
 
-    public void finirPhaseEquipe(List<Unite> equipe) {
-        for (Unite unite : equipe) {
-            modifierEtat(unite, EtatUnite.TERMINEE);
+    public boolean terminerPhaseCourante() {
+        if(campActif == Camp.ALLIES && phaseTerminee(allies)) {
+            campActif = Camp.ENNEMIS;
+            reinitialiserEtat(ennemies);
+            return true;
         }
+        if (campActif == Camp.ENNEMIS && phaseTerminee(ennemies)) {
+            campActif = Camp.ALLIES;
+            reinitialiserEtat(allies);
+            return true;
+        }
+        return false;
+    }
+
+    public void finirPhaseEquipe() {
+        if(campActif == Camp.ALLIES) {
+            for (Unite unite : allies) {
+                if(unite.getCurrentHp() > 0 && etats.get(unite) != EtatUnite.TERMINEE) {
+                    modifierEtat(unite, EtatUnite.TERMINEE);
+                }
+            }
+        }
+        else {
+            for (Unite unite : ennemies) {
+                if(unite.getCurrentHp() > 0 && etats.get(unite) != EtatUnite.TERMINEE) {
+                    modifierEtat(unite, EtatUnite.TERMINEE);
+                }
+            }
+        }
+        terminerPhaseCourante();
     }
 
     public void reinitialiserEtat(List<Unite> equipe) {

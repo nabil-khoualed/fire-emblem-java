@@ -9,10 +9,19 @@ public class MainTestCamp {
         Archer vaike = new Archer("Vaike", 45, 45, 9, 2,
         6, 7, 9, 5, 3, 3, 10);
 
-        Clerc lissa = new Clerc("Lissa", 18, 18, 0, 7,
-        2, 8, 7, 5, 0, 1, 9);
+        Cavalier frederick = new Cavalier("Frederick", 0, 35, 7, 0,
+        6, 4, 6, 7, 1, 3, 5);
 
-        ArrayList<Unite> allies = new ArrayList<>(List.of(chrom));
+        Arme epeeBronze = new Arme("Epee Bronze", CategorieArme.EPEE, 3, 100,
+        0, 1, 1, 10, 1, 350);
+
+        Arme arcAcier = new Arme("Arc Acier", CategorieArme.ARC, 3, 85,
+        5, 2, 2, 10, 3, 1680);
+
+        Arme lanceAcier = new Arme("Lance Acier", CategorieArme.LANCE, 4, 80,
+        90, 1, 1, 20, 5, 910);
+
+        ArrayList<Unite> allies = new ArrayList<>(List.of(chrom, frederick));
 
         ArrayList<Unite> ennemies = new ArrayList<>(List.of(vaike));
 
@@ -21,39 +30,35 @@ public class MainTestCamp {
         game.placerObstacle(1, 3);
         game.placerObstacle(3, 3);
 
+/*         chrom.ajouterObjet(epeeBronze);
+        chrom.equiperArme(epeeBronze);
+
+        frederick.ajouterObjet(lanceAcier);
+        frederick.equiperArme(lanceAcier);
+
+        vaike.ajouterObjet(arcAcier);
+        vaike.equiperArme(arcAcier); */
+
         game.afficherTerrain();
-
         System.out.println("Camp actif : " + game.getCampActif());
-        Arme epeeBronze = new Arme("Epee Bronze", CategorieArme.EPEE, 3, 100,
-        0, 1, 1, 10, 1, 350);
-        Arme lanceAcier = new Arme("Lance Acier", CategorieArme.LANCE, 4, 80,
-        90, 1, 1, 1, 5, 910);
-        Arme soin = new Arme("Soin", CategorieArme.BATON, 8, 100,
-        0, 1, 1, 1, 1, 600, EffetBaton.SOIN);
-
-        System.out.println("Chrom peut agir : " + game.peutAgir(chrom));
-        System.out.println("Chrom peut se déplacer : " + game.peutSeDeplacer(chrom));
-
-        System.out.println("Vaike peut agir : " + game.peutAgir(vaike));
-        System.out.println("Vaike peut se déplacer : " + game.peutSeDeplacer(vaike));
-        System.out.println(vaike.afficherFiche() + ", état : " + game.recupererEtat(vaike));
+        System.out.println(chrom.afficherFiche() + ", état : " + game.recupererEtat(chrom));
+        System.out.println(frederick.afficherFiche() + ", état : " + game.recupererEtat(frederick));
 
         System.out.println("Chrom attend. " + game.attendre(chrom));
-        System.out.println("Chrom peut agir : " + game.peutAgir(chrom));
-        System.out.println("Chrom peut se déplacer : " + game.peutSeDeplacer(chrom));
+        System.out.println("J'appelle phaseTerminee(allies) : " + game.phaseTerminee(allies));
+        System.out.println("J'appelle terminerPhaseCourante : " + game.terminerPhaseCourante());
 
-        System.out.println("Lissa peut agir : " + game.peutAgir(lissa));
-        System.out.println("Lissa peut se déplacer : " + game.peutSeDeplacer(lissa));
-
+        System.out.println("Camp actif : " + game.getCampActif());
         System.out.println(chrom.afficherFiche() + ", état : " + game.recupererEtat(chrom));
-        System.out.println("Chrom se déplace en [2,2] : " + game.deplacerUnite(chrom, 2, 2));
+        System.out.println(frederick.afficherFiche() + ", état : " + game.recupererEtat(frederick));
+        System.out.println(vaike.afficherFiche() + ", état : " + game.recupererEtat(vaike));
+
+        System.out.println("Vaike attend. " + game.attendre(vaike));
+        System.out.println("J'appelle terminerPhaseCourante : " + game.terminerPhaseCourante());
+
+        System.out.println("Camp actif : " + game.getCampActif());
         System.out.println(chrom.afficherFiche() + ", état : " + game.recupererEtat(chrom));
-        System.out.println();
-        ArrayList<Unite> allUnits = new ArrayList<>();
-        allUnits.addAll(allies);
-        allUnits.addAll(ennemies);
-
-        game.afficherTerrain();
-
+        System.out.println(frederick.afficherFiche() + ", état : " + game.recupererEtat(frederick));
+        System.out.println(vaike.afficherFiche() + ", état : " + game.recupererEtat(vaike));
     }
 }
