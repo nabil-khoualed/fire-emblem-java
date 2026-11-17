@@ -13,6 +13,7 @@ public class Partie {
     private int rowCount;
     private int columnCount;
     private boolean[][] casesInfranchissables;
+    private Camp campActif;
 
     Partie(List<Unite> allies, List<Unite> ennemies) {
         this(allies, ennemies, 5, 7);
@@ -31,6 +32,7 @@ public class Partie {
         this.rowCount = rowCount;
         this.columnCount = columnCount;
         this.casesInfranchissables = new boolean[rowCount][columnCount];
+        this.campActif = Camp.ALLIES;
     }
     
 
@@ -64,6 +66,10 @@ public class Partie {
 
     public boolean[][] getCasesInfranchissables() {
         return casesInfranchissables;
+    }
+
+    public Camp getCampActif() {
+        return campActif;
     }
 
     public boolean peutAgir(Unite unite) {
