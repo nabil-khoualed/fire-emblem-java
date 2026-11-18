@@ -430,8 +430,12 @@ public class Partie {
     }
 
     public List<Position> calculerCasesAccessibles(Unite unite) {
+
         Queue<Position> file = new ArrayDeque<>();
         List<Position> positionsAcessibles = new ArrayList<>();
+        if(unite.getCurrentHp() <= 0 || (!allies.contains(unite) && !ennemies.contains(unite))) {
+            return positionsAcessibles;
+        }
         int[][] distances = new int [rowCount][columnCount];
         for(int i = 0 ; i < rowCount ; i++) {
             Arrays.fill(distances[i], -1);
