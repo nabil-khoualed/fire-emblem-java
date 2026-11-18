@@ -6,7 +6,7 @@ public class MainTestCamp {
         Epeiste chrom = new Epeiste("Chrom", 24, 24, 8, 2,
         5, 3, 15, 3, 2, 3, 3);
 
-        Archer vaike = new Archer("Vaike", 45, 45, 9, 2,
+        Archer vaike = new Archer("Vaike", 0, 45, 9, 2,
         6, 7, 9, 5, 3, 3, 10);
 
 /*         Cavalier frederick = new Cavalier("Frederick", 0, 35, 7, 0,
@@ -42,20 +42,12 @@ public class MainTestCamp {
         System.out.println(chrom.afficherFiche() + ", état : " + game.recupererEtat(chrom));
         System.out.println(vaike.afficherFiche() + ", état : " + game.recupererEtat(vaike));
         System.out.println("Partie : " + game.determinerResultat());
-
-        vaike.subirDegats(45);
+        System.out.println("Chrom peut agir : " + game.peutAgir(chrom));
+        System.out.println("Chrom attend : " + game.attendre(chrom));
+        System.out.println("Terminer phase courante : " + game.terminerPhaseCourante());
+        System.out.println("Appel de la méthode finirPhaseEquipe. ");
+        game.finirPhaseEquipe();
+        System.out.println("Tour " + game.getNumeroTour() + " - " + game.getCampActif());
         System.out.println(chrom.afficherFiche() + ", état : " + game.recupererEtat(chrom));
-        System.out.println(vaike.afficherFiche() + ", état : " + game.recupererEtat(vaike));
-        System.out.println("Partie : " + game.determinerResultat());
-
-        chrom.subirDegats(40);
-        System.out.println(chrom.afficherFiche() + ", état : " + game.recupererEtat(chrom));
-        System.out.println(vaike.afficherFiche() + ", état : " + game.recupererEtat(vaike));
-        System.out.println("Partie : " + game.determinerResultat());
-
-        vaike.recevoirSoin(45);
-        System.out.println(chrom.afficherFiche() + ", état : " + game.recupererEtat(chrom));
-        System.out.println(vaike.afficherFiche() + ", état : " + game.recupererEtat(vaike));
-        System.out.println("Partie : " + game.determinerResultat());
     }
 }

@@ -81,7 +81,8 @@ public class Partie {
     }
 
     public boolean peutAgir(Unite unite) {
-        return unite.getCurrentHp() > 0 &&
+        return determinerResultat() == ResultatPartie.EN_COURS &&
+        unite.getCurrentHp() > 0 &&
         etats.get(unite) != EtatUnite.TERMINEE &&
         ((allies.contains(unite) && campActif == Camp.ALLIES) 
         || (ennemies.contains(unite) && campActif == Camp.ENNEMIS));
@@ -232,6 +233,9 @@ public class Partie {
     }
 
     public boolean terminerPhaseCourante() {
+        if(determinerResultat() != ResultatPartie.EN_COURS) {
+            return false;
+        }
         if(campActif == Camp.ALLIES && phaseTerminee(allies)) {
             campActif = Camp.ENNEMIS;
             reinitialiserEtat(ennemies);
@@ -247,6 +251,9 @@ public class Partie {
     }
 
     public void finirPhaseEquipe() {
+        if(determinerResultat() != ResultatPartie.EN_COURS) {
+            return;
+        }
         if(campActif == Camp.ALLIES) {
             for (Unite unite : allies) {
                 if(unite.getCurrentHp() > 0 && etats.get(unite) != EtatUnite.TERMINEE) {
@@ -345,10 +352,15 @@ public class Partie {
             System.out.println("Déplacement impossible");
             return false;
         }
+        System.out.print(unite.getName() + " s'est déplacé : " + afficherPositionUnite(unite) + " -> ");
         unite.deplacerVers(row, col);
-        System.out.println(unite.getName() + " s'est déplacé en [" + row + ", " + col + "].");
+        System.out.println(afficherPositionUnite(unite));
         modifierEtat(unite, EtatUnite.DEPLACEE);
         return true;
+    }
+
+    public String afficherPositionUnite(Unite unite) {
+        return ("[" + unite.getRow() + "," + unite.getCol() + "]");
     }
 
     public void afficherTerrain() {
@@ -506,5 +518,5 @@ public class Partie {
         else {
             return ResultatPartie.EN_COURS;
         }
-    } 
+    }
 }
