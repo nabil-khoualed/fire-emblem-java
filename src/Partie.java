@@ -481,4 +481,30 @@ public class Partie {
         }
         return positionsAcessibles;
     }
+
+    public boolean equipeVaincue(List<Unite> equipe) {
+        for(Unite unite : equipe) {
+            if(unite.getCurrentHp() > 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public ResultatPartie determinerResultat() {
+        boolean alliesVaincus = equipeVaincue(allies);
+        boolean ennemiesVaincus = equipeVaincue(ennemies);
+        if(alliesVaincus && ennemiesVaincus) {
+            return ResultatPartie.MATCH_NUL;
+        }
+        else if(alliesVaincus) {
+            return ResultatPartie.VICTOIRE_ENNEMIS;
+        }
+        else if(ennemiesVaincus) {
+            return ResultatPartie.VICTOIRE_ALLIES;
+        }
+        else {
+            return ResultatPartie.EN_COURS;
+        }
+    } 
 }
